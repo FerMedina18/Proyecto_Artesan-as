@@ -1,0 +1,189 @@
+body{
+    font-family: 'Segoe UI', sans-serif;
+    margin:0;
+    padding:0;
+    display: grid;
+    grid-template-areas: "header"
+                         "main"
+                         "footer";
+    grid-template-rows: 60px 1fr auto;
+}
+
+header{
+    grid-area: header;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo busqueda usuarios";
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 20px;
+}
+
+.logo h1{
+    margin: 0;
+    margin-left: 20px;
+}
+
+.logo a{
+    text-decoration: none;
+    color: black;
+}
+
+.logo{
+    grid-area: logo;
+}
+
+.busqueda{
+    grid-area: busqueda;
+}
+
+.barrabusqueda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.busqueda .barrabusqueda input{
+    min-width: 60%;
+    padding: 0 15px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+.barrabusqueda button{
+    font-size: 16px;
+    height: 37px;
+    border: 1px solid #ccc;
+    border-left: none;
+    padding: 0 25px;
+    color: white;
+    background: rgba(30, 139, 195, 1);
+    cursor: pointer;
+    outline: none;
+}
+
+.barrabusqueda button:hover{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5) inset;
+}
+
+.usuarios{
+    grid-area: usuarios;
+}
+
+.usuarios a{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+}
+
+.usuarios .carrito{
+    border:none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.usuarios .carrito:hover{
+    background: #e7e7e7;
+    color: blue;
+}
+
+/*Media querys*/
+
+@media screen and (max-width: 810px){
+    header{
+        grid-template-columns: auto auto;
+        grid-template-areas: "logo usuarios"
+                             "busqueda busqueda";
+    }
+
+    .barrabusqueda input{
+        width: 85%;
+    }
+
+    .barrabusqueda button{
+        width: 15%;
+    }
+
+    .logo h1{
+        font-size: 24px;
+    }
+
+    .usuarios{
+        font-size: 14px;
+    }
+
+    .usuarios .carrito{
+        font-size: 16px;
+    }
+
+}
+
+@media screen and (max-width: 500px){
+    .busqueda .barrabusqueda input{
+        min-width: 40%;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+
+    .barrabusqueda button{
+        font-size: 12px;
+        height: 32px;
+        padding-left: 20px;
+    }
+
+    .logo h1{
+        font-size: 22px;
+        margin-left: 10px;
+    }
+
+    .usuarios{
+        font-size: 12px;
+    }
+
+    .usuarios .carrito{
+        font-size: 14px;
+        margin-right: 0px;
+    }
+}
+
+@media screen and (max-width: 380px){
+
+    .busqueda .barrabusqueda input{
+        min-width: 30%;
+        height: 25px;
+        line-height: 25px;
+        font-size: 12px;
+    }
+
+    .barrabusqueda button{
+        font-size: 10px;
+        height: 27px;
+    }
+
+    .usuarios a{
+        margin-left: 0px;
+    }
+
+    .logo h1{
+        font-size: 17px;
+        margin-left: 10px;
+    }
+
+    .usuarios{
+        font-size: 11px;
+    }
+
+    .usuarios .carrito{
+        font-size: 12px;
+        margin-right: 0px;
+    }
+}
