@@ -7,6 +7,7 @@ body{
                          "main"
                          "footer";
     grid-template-rows: 60px 1fr auto;
+    min-width: 320px;
 }
 
 header{
@@ -17,7 +18,7 @@ header{
     grid-template-areas: "logo busqueda usuarios";
     align-items: center;
     justify-content: space-between;
-    grid-gap: 20px;
+    grid-gap: 20px;;
 }
 
 .logo h1{
@@ -32,6 +33,14 @@ header{
 
 .logo{
     grid-area: logo;
+    display: flex;
+    align-items: center;
+}
+
+.logo i{
+    font-size: 28px;
+    color: #888888;
+    margin: 0 25px;
 }
 
 .busqueda{
@@ -95,9 +104,48 @@ header{
     color: blue;
 }
 
+/*Sub meu principal*/
+
+/* main*/
+main{
+    background: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/*Footer*/
+footer{
+    width: 100%;
+    height: auto;
+    color: white;
+    background: rgba(30, 139, 195, 1);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+footer a{
+    margin-right: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
+
+
 /*Media querys*/
 
 @media screen and (max-width: 810px){
+    body{
+        grid-template-rows: auto;
+    }
+
     header{
         grid-template-columns: auto auto;
         grid-template-areas: "logo usuarios"
@@ -122,6 +170,13 @@ header{
 
     .usuarios .carrito{
         font-size: 16px;
+    }
+
+    .logo i{
+        font-size: 22px;
+        color: #888888;
+        margin: 0;
+        margin-left: 20px;
     }
 
 }
@@ -153,6 +208,16 @@ header{
         font-size: 14px;
         margin-right: 0px;
     }
+
+    footer a:nth-of-type(1){
+        margin-left: 18px;
+    }
+
+    .logo i{
+        font-size: 20px;
+        color: #888888;
+        margin: 0;
+    }
 }
 
 @media screen and (max-width: 380px){
@@ -174,8 +239,8 @@ header{
     }
 
     .logo h1{
-        font-size: 17px;
-        margin-left: 10px;
+        font-size: 16px;
+        margin-left: 8px;
     }
 
     .usuarios{
@@ -185,5 +250,19 @@ header{
     .usuarios .carrito{
         font-size: 12px;
         margin-right: 0px;
+    }
+
+    footer{
+        font-size: 12px;
+    }
+
+    footer a:nth-of-type(1){
+        margin-left: 15px;
+    }
+    
+    .logo i{
+        font-size: 16px;
+        color: #888888;
+        margin: 0;
     }
 }
