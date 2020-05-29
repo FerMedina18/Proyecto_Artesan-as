@@ -54,7 +54,7 @@ ROOT_URLCONF = 'artesanias.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['C:/Users/angel/Desktop/Proyecto_Artesanias/artesanias//templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
