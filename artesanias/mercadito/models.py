@@ -77,7 +77,7 @@ class Imagen(models.Model):
     def __str__(self):
         return self.producto
 
-class Puntuacion(models.model):
+class Puntuacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     usuario_comprador = models.ForeignKey(Usuario_Comprador, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
