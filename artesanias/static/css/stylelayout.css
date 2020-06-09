@@ -1,0 +1,316 @@
+body{
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    max-width: 1920px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    display: grid;
+    grid-template-areas: "logo buscador usuarios"
+                         "submenu submenu submenu";
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    height: auto;
+    padding-top: 20px;
+    background: #fff;
+    position: fixed;
+    width: 100%;
+}
+
+header .logo a:hover{
+    text-decoration: none;
+}
+
+header .logo a:active{
+    text-decoration: none;
+}
+
+header .usuarios a:hover{
+    text-decoration: none;
+}
+
+.menu{
+    margin-left: 40px;
+    display: none;
+}
+
+.logo{
+    grid-area: logo;
+    margin-left: 40px;
+}
+
+.logo a{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.barrabusqueda{
+    grid-area: buscador;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+}
+
+.barrabusqueda input{
+    width: 80%;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.bbuscar{
+    padding: 0 20px;
+    border: 1px solid #ccc;
+    border-left: none;
+    outline: none;
+    background: #1E8BC3;
+    color: #ffffff;
+}
+
+.bbuscar:hover{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5) inset;
+    cursor: pointer;
+}
+
+.usuarios{
+    grid-area: usuarios;
+    margin-right: 40px;
+}
+
+.usuarios a{
+    margin-right: 10px;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+a.carrito{
+    margin-right: 0px;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.carrito:hover{
+    border: 1px solid #1E8BC3;
+    background: #ccc;
+    color: blue;
+}
+
+.usuarios a:hover{
+    border: 1px solid  #1E8BC3;
+}
+
+.submenu{
+    grid-area: submenu;
+    width: 100%;
+    height: 35px;
+    background: #1E8BC3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.fade-sm.active{
+    background: transparent;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.submenu a{
+    color: #fff;
+    margin-left: 20px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    font-size: 14px;
+}
+
+.categorias a{
+    color: white;
+    border-radius: 0;
+}
+
+.submenu > a:hover{
+    border: 1px solid #fff;
+    text-decoration: none;
+}
+
+.catg{
+    width: 140px;
+}
+
+.catg ul li{
+    display: none;
+}
+
+.submenu .catg .btn{
+    z-index: 10;
+}
+
+.catg ul li.active{
+    display: block;
+    animation: animationa;
+    animation-duration: 0.3s;
+}
+
+@keyframes animationa{
+    from{
+        height: 0px;
+    }
+
+    to{
+        height: 41px;
+    }
+}
+
+.catg a{
+    display: block;
+    padding: 5px 10px;
+}
+
+.catg a i{
+    float: right;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.catg a:hover{
+    text-decoration: none;
+}
+
+.categorias{
+    position: absolute;
+    padding: 0;
+    width: 140px;
+    background: #1E8BC3;
+    top: 100px;
+    transform: translateX(15px);
+    z-index: 101;
+}
+
+.categorias li a{
+    display: block;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+.categorias li a:hover{
+    background: #f2f2f2;
+    color: #000000;
+}
+
+/*Regresar arriba*/
+#mbutton{
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    z-index: 99;
+    border:none;
+    outline:none;
+    background: #1E8BC3;
+    color:white;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+#mbutton:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) ;
+}
+
+/*Footer*/
+footer{
+    margin-top: 20px;
+    height: auto;
+    color: #fff;
+    background: #1E8BC3;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+footer a, footer p{
+    margin: 10px 0 10px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    color: #fff;
+}
+
+
+@media screen and (max-width: 875px){
+    .barrabusqueda input{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 725px){
+    header{
+        grid-template-columns: auto 1fr;
+        grid-template-areas: "pmenu logo"
+                             "buscador buscador";
+    }
+
+    .menu{
+        display: block;
+        grid-area: pmenu;
+    }
+
+    .mbuscador{
+        grid-area: buscador;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .barrabusqueda{
+        width: 100%;
+    }
+
+    .barrabusqueda input{
+        width: 80%;
+    }
+
+    .usuarios{
+        display: none;
+    }
+
+    .submenu{
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 400px){
+
+    .barrabusqueda{
+        padding-top: 0px;
+        width: 100%;
+    }
+
+    .barrabusqueda input{
+        width: 70%;
+    }
+
+    .menu{
+        margin-left: 30px;
+    }
+
+    .logo{
+        margin-left: 15px;
+    }
+}

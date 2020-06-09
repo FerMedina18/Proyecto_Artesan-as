@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/stylelayout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    
+    <title>
+        {% block head_title %}
+        {% endblock %}
+    </title>
+
+    {% block extra_head %}
+    {% endblock %}
+    
+</head>
+<body style="margin-left: auto; margin-right: auto;">
+    <header>
+        <div class="menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <a href="#">El mercadito</a>
+        </div>
+        <form method="GET" class="mbuscador">
+            <div class="barrabusqueda">
+                <input type="search" name="buscar" placeholder="Buscar">
+                <button type="submit" class="bbuscar"><i class="fa fa-search" ></i></button>
+            </div>
+        </form>
+        <div class="usuarios">
+            <a href="cuentas/inicionormal.html">Iniciar Sesión</a>
+            <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
+        </div>
+
+        <div class="submenu">
+            <div class="catg">
+                <div class="boton">
+                    <a href="#" class="boton">categorias
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+                <ul class="categorias">
+                    <li><a href="#">Madera</a></li>
+                    <li><a href="#">Barro</a></li>
+                    <li><a href="#">Tela</a></li>
+                    <li><a href="#">Instrumentos</a></li>
+                </ul>
+            </div>
+            <a href="#">Registrarse</a>
+            <a href="#">Vender</a>
+        </div>
+        <div class="fade-sm"></div>
+    </header>
+    
+    {% include "menulateral.html" %}
+
+    {% block content %}
+    {% endblock content %}
+
+    <div class="backtotop">
+        <button id="mbutton" title="Autoscroll">Top</button>
+    </div>
+    <footer>
+        <a href="">Condiciones de uso</a>
+        <a href="">Política de privacidad</a>
+        <p>&copy;Todos los derechos reservados, El mercadito</p>
+    </footer>
+
+    {% block extra_body %}
+    {% endblock %}
+    
+    {% include "scripts.html" %}
+    
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+</body>
+</html>

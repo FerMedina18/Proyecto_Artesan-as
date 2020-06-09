@@ -1,268 +1,47 @@
-body{
-    font-family: 'Segoe UI', sans-serif;
-    margin:0;
-    padding:0;
-    display: grid;
-    grid-template-areas: "header"
-                         "main"
-                         "footer";
-    grid-template-rows: 60px 1fr auto;
-    min-width: 320px;
-}
-
-header{
-    grid-area: header;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas: "logo busqueda usuarios";
-    align-items: center;
-    justify-content: space-between;
-    grid-gap: 20px;;
-}
-
-.logo h1{
-    margin: 0;
-    margin-left: 20px;
-}
-
-.logo a{
-    text-decoration: none;
-    color: black;
-}
-
-.logo{
-    grid-area: logo;
-    display: flex;
-    align-items: center;
-}
-
-.logo i{
-    font-size: 28px;
-    color: #888888;
-    margin: 0 25px;
-}
-
-.busqueda{
-    grid-area: busqueda;
-}
-
-.barrabusqueda {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.busqueda .barrabusqueda input{
-    min-width: 60%;
-    padding: 0 15px;
-    height: 35px;
-    line-height: 35px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    outline: none;
-}
-
-.barrabusqueda button{
-    font-size: 16px;
-    height: 37px;
-    border: 1px solid #ccc;
-    border-left: none;
-    padding: 0 25px;
-    color: white;
-    background: rgba(30, 139, 195, 1);
-    cursor: pointer;
-    outline: none;
-}
-
-.barrabusqueda button:hover{
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5) inset;
-}
-
-.usuarios{
-    grid-area: usuarios;
-}
-
-.usuarios a{
-    text-decoration: none;
-    color: black;
-    margin-left: 10px;
-}
-
-.usuarios .carrito{
-    border:none;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-}
-
-.usuarios .carrito:hover{
-    background: #e7e7e7;
-    color: blue;
-}
-
-/*Sub meu principal*/
-
-/* main*/
 main{
-    background: red;
-    text-align: center;
-    margin-top: 15px;
-}
-
-/*Footer*/
-footer{
+    margin-top: 115px;
     width: 100%;
-    height: auto;
-    color: white;
-    background: rgba(30, 139, 195, 1);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-size: 14px;
 }
 
-footer a{
-    margin-right: 20px;
-    text-decoration: none;
-    color: white;
+.container{
+    margin: 40px auto;
+    width: 450px;
+    border: 1px solid #525252;
+    border-radius: 5px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3) ;
 }
 
-footer a:hover{
-    text-decoration: underline;
+.container h1{
+    margin-bottom: 10px;
 }
 
-
-
-/*Media querys*/
-
-@media screen and (max-width: 810px){
-    body{
-        grid-template-rows: auto;
-    }
-
-    header{
-        grid-template-columns: auto auto;
-        grid-template-areas: "logo usuarios"
-                             "busqueda busqueda";
-    }
-
-    .barrabusqueda input{
-        width: 85%;
-    }
-
-    .barrabusqueda button{
-        width: 15%;
-    }
-
-    .logo h1{
-        font-size: 24px;
-    }
-
-    .usuarios{
-        font-size: 14px;
-    }
-
-    .usuarios .carrito{
-        font-size: 16px;
-    }
-
-    .logo i{
-        font-size: 22px;
-        color: #888888;
-        margin: 0;
-        margin-left: 20px;
-    }
-
+.container p{
+    color: #525252;
 }
 
-@media screen and (max-width: 500px){
-    .busqueda .barrabusqueda input{
-        min-width: 40%;
-        height: 30px;
-        line-height: 30px;
-        font-size: 14px;
-    }
+.container .form-group{
+    line-height: 50px;
+}
 
-    .barrabusqueda button{
-        font-size: 12px;
-        height: 32px;
-        padding-left: 20px;
-    }
-
-    .logo h1{
-        font-size: 22px;
-        margin-left: 10px;
-    }
-
-    .usuarios{
-        font-size: 12px;
-    }
-
-    .usuarios .carrito{
-        font-size: 14px;
-        margin-right: 0px;
-    }
-
-    footer a:nth-of-type(1){
-        margin-left: 18px;
-    }
-
-    .logo i{
-        font-size: 20px;
-        color: #888888;
-        margin: 0;
+/* Media queries*/
+@media screen and (min-height: 769px){
+    .container{
+        margin: 60px auto;
     }
 }
 
-@media screen and (max-width: 380px){
-
-    .busqueda .barrabusqueda input{
-        min-width: 30%;
-        height: 25px;
-        line-height: 25px;
-        font-size: 12px;
+@media screen and (min-height: 900px){
+    .container{
+        margin: 50px auto;
+        padding: 60px 30px;
+        width: 500px;
     }
+}
 
-    .barrabusqueda button{
-        font-size: 10px;
-        height: 27px;
-    }
-
-    .usuarios a{
-        margin-left: 0px;
-    }
-
-    .logo h1{
-        font-size: 16px;
-        margin-left: 8px;
-    }
-
-    .usuarios{
-        font-size: 11px;
-    }
-
-    .usuarios .carrito{
-        font-size: 12px;
-        margin-right: 0px;
-    }
-
-    footer{
-        font-size: 12px;
-    }
-
-    footer a:nth-of-type(1){
-        margin-left: 15px;
-    }
-    
-    .logo i{
-        font-size: 16px;
-        color: #888888;
-        margin: 0;
+@media screen and (min-height: 975px){
+    .container{
+        margin: 108px auto;
+        padding: 70px 30px;
     }
 }
