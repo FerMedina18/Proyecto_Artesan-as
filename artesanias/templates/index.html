@@ -33,6 +33,11 @@
     </header>
     <main>
         <h1>Aca el main</h1>
+        {% block content %}
+            {% for categoria in categorias %}
+                Nombre: {{categoria.nombre}}, Descripción {{categoria.descripcion}} <br>
+            {% endfor %}
+        {% endblock %}
     </main>
     <footer>
         <a href="">Condiciones de uso</a>

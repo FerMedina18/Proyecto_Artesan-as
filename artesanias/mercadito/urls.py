@@ -2,11 +2,14 @@ from django.urls import path
 from .views import index
 from  rest_framework import routers
 from .viewsets import *
+from .views import *
 
 app_name = 'mercadito'
 
 urlpatterns = [
-    path('', index, name='home')
+    path('', index, name='home'),
+    # path('get_usuario_vendedor', get_usuario_vendedor),
+    # path('get_categoria', get_categoria)
 ]
 
 router = routers.SimpleRouter()

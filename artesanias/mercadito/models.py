@@ -102,6 +102,7 @@ class Detalle_Orden(models.Model):
 
     def __str__(self):
         return self.producto
+
     
     
     
