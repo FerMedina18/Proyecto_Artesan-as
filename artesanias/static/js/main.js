@@ -82,4 +82,26 @@ $(document).ready(function(){
         document.documentElement.scrollTop = 0;
     }
 
+    $('#imageperfiluc').on('change', validarImagen);
+
+    /* validar imagenes */
+    function validarImagen(){
+        var fileName = document.getElementById("imageperfiluc").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+
+            if(fileName.files && fileName.files[0]){
+                var ver = new FileReader();
+
+                ver.onload=function(e){
+                    document.getElementById('visualizar').innerHTML =
+                    '<embed src="'+e.target.result+'" width="200" height="200" >';
+                }
+                ver.readAsDataURL(fileName.files[0]);
+            }
+        }else{
+            alert("Solo se permite archivos cuya extensión sean jpg, png o jpeg");
+        }   
+    }
 });

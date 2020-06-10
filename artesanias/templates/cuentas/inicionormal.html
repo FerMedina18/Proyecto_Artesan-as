@@ -8,15 +8,27 @@
 {% block content %}
 
 <main>
-    <div class="container">
+    <div class="isesion container">
         <h1>Iniciar sesión</h1>
-        <form method="post" class="inormal">
-            <p>Nombre de usuario</p>
-            <input type="text" name="nusuario" placeholder="Usuario">
-            <p>Contraseña</p>
-            <input type="password" name="cusuario" placeholder="Contraseña">
-            <a href="#">¿Ha olvidado su contaseña?</a>
-            <button class="btn btn-primary" type=subtmit>Acceder</button>
+        <p>Si aún no tiene una cuenta puede registrarese en el siguiente enlace <span><a href="#">Regristrase</a></span>.</p>
+        <form method="post">
+            <div class="form-group">
+                <label for="nusuario">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nusuario" placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="rusuario">Ingresar como</label>
+                <select class="form-control" id="rusuario">
+                    <option value="comprador">Comprador</option>
+                    <option value="vendedor">Vendedor</option>
+                </select>    
+            </div>
+            <div class="form-group">
+                <label for="pusuario">Contraseña</label>
+                <input type="password" class="form-control" id="pusuario" placeholder="Ingrsar contraseña" required>
+                <a href="#">¿Ha olvidado su contraseña?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Acceder</button>
         </form>    
     </div>
 </main>

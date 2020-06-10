@@ -7,27 +7,81 @@
 
 {% block content %}
 <main>
-    <div class="container">
-        <h1>Iniciar sesión</h1>
-        <p>Si aún no tiene una cuenta puede registrarese en el siguiente enlace <span><a href="#">Regristrase</a></span>.</p>
+    <div class="rusuarioc container" enctype="multipart/form-data">
+        <h1>Registro</h1>
+        <p>La siguiente cuenta le permitira hacer compras dentro de la plataforma, hacer valoraciones de productos y gestionar sus compras</p>
         <form method="post">
             <div class="form-group">
-                <label for="nusuario">Nombre de usuario</label>
-                <input type="text" class="form-control" id="nusuario" placeholder="Usuario">
+                <label for="nombresuc">Nombres</label>
+                <input type="text" class="form-control" id="nombresuc" placeholder="Primer y segundo Nombre" required>
             </div>
+    
+            <br>
+
             <div class="form-group">
-                <label for="rusuario">Ingresar como</label>
-                <select class="form-control" id="rusuario">
-                    <option value="comprador">Comprador</option>
-                    <option value="vendedor">Vendedor</option>
-                </select>    
+                <label for="apellidosuc">Apellidos</label>
+                <input type="text" class="form-control" id="apellidosuc" placeholder="Primer y segundo Apellido" required>
             </div>
+            
+            <br>
+
             <div class="form-group">
-                <label for="pusuario">Contraseña</label>
-                <input type="password" class="form-control" id="pusuario" placeholder="Ingrsar contraseña">
-                <a href="#">¿Ha olvidado su contraseña?</a>
+                <label for="ciudaduc">Ciudad</label>
+                <input type="text" id="ciudaduc" class="form-control" placeholder="Ciudad donde recide" required>  
             </div>
-            <button type="submit" class="btn btn-primary">Acceder</button>
+                
+            <br>
+
+            <div class="form-group">
+                <label for="telefonouc">Telefono</label>
+                <input type="text" class="form-control" id="telefonouc" placeholder="Número de telefono" required>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="correouc">Correo</label>
+                <input type="email" class="form-control" id="correouc" placeholder="Ingresar correo electronico" required>
+            </div>
+
+            <br>
+            
+            <div class="form-group">
+                <label for="direccionuc">Dirección</label>
+                <textarea class="form-control" id="direccionuc" placeholder="Dirección actual" row="3" required></textarea>
+            </div>
+
+            <br>
+
+            <hr>
+
+            <h3>Datos de usuario</h3>
+
+            <div class="imagenuc form-group">
+                <label for="imageperfiluc">Seleccionar imagen de perfil</label>
+                <input type="file" class="form-control-file" id="imageperfiluc" accept=".png, .jpg, .jpeg">
+                
+                <input type="button" class="btn btn-primary" value="Subir imagen"
+                        onclick="document.getElementById('imageperfiluc').click()">
+            
+                <div id="visualizar"></div>    
+            </div>
+            
+            <div class="form-group">
+                <label for="nusuarioc">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nusuarioc" placeholder="Usuario" required>
+            </div>
+            
+            <br>
+
+            <div class="form-group">
+                <label for="pusuarioc">Contraseña</label>
+                <input type="password" class="form-control" id="pusuarioc" placeholder="Establecer contraseña" required>
+            </div>
+
+            <br>
+            
+            <button type="submit" class="btn btn-primary">Iniciar</button>
         </form>    
     </div>
 </main>

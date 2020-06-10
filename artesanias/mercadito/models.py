@@ -34,7 +34,7 @@ class Usuario_Comprador(models.Model):
 
 class Perfil_Comprador(models.Model):
     usuario_comprador = models.OneToOneField(Usuario_Comprador, on_delete=models.CASCADE)
-    imagen = models.ImageField(blank=True)
+    imagen = models.ImageField(upload_to="usuarioComprador", blank=True)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=200)
