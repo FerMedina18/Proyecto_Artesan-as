@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+    Inicio
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="rusuariov container" enctype="multipart/form-data">
+        <h2>Registro vendedor</h2>
+        <p>La siguiente cuenta le permitira ofrecer sus productos, clasificarlos, gestionar stock y ofrecer descuentos</p>
+        <form method="post">
+            <div class="form-group">
+                <label for="nombresuv">Nombres</label>
+                <input type="text" class="form-control" id="nombresuv" placeholder="Primer y segundo Nombre" required>
+            </div>
+    
+            <br>
+
+            <div class="form-group">
+                <label for="apellidosuv">Apellidos</label>
+                <input type="text" class="form-control" id="apellidosuv" placeholder="Primer y segundo Apellido" required>
+            </div>
+            
+            <br>
+
+            <div class="form-group">
+                <label for="ciudaduv">Ciudad</label>
+                <input type="text" id="ciudaduv" class="form-control" placeholder="Ciudad donde recide" required>  
+            </div>
+                
+            <br>
+
+            <div class="form-group">
+                <label for="telefonouv">Telefono</label>
+                <input type="text" class="form-control" id="telefonouv" placeholder="Número de telefono" required>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="correouv">Correo</label>
+                <input type="email" class="form-control" id="correouv" placeholder="Ingresar correo electronico" required>
+            </div>
+
+            <br>
+            
+            <div class="form-group">
+                <label for="direccionuv">Dirección</label>
+                <textarea class="form-control" id="direccionuv" placeholder="Dirección actual" row="3" required></textarea>
+            </div>
+
+            <br>
+
+            <hr>
+
+            <h3>Datos de usuario</h3>
+
+            <div class="imagenuv form-group">
+                <label for="imageperfiluv">Seleccionar imagen de perfil</label>
+                <input type="file" class="form-control-file" id="imageperfiluv" accept=".png, .jpg, .jpeg">
+                
+                <input type="button" class="btn btn-primary" value="Subir imagen"
+                        onclick="document.getElementById('imageperfiluv').click()">
+            
+                <div class="container mostrar">
+                    <div id="visualizar"></div>
+                </div>    
+            </div>
+            
+            <div class="form-group">
+                <label for="nusuariov">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nusuariov" placeholder="Usuario" required>
+            </div>
+            
+            <br>
+
+            <div class="form-group">
+                <label for="pusuariov">Contraseña</label>
+                <input type="password" class="form-control" id="pusuariov" placeholder="Establecer contraseña" required>
+            </div>
+
+            <br>
+            
+            <button type="submit" class="btn btn-primary">Iniciar</button>
+        </form>    
+    </div>
+</main>
+{% endblock content %}

@@ -38,6 +38,20 @@ main{
     display: none;
 }
 
+div.container.ver{
+    display: flex;
+    justify-content: center;
+}
+
+.lista{
+    list-style-type: disc;
+}
+
+.container.notap, .container.condicionesu{
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
 /* Media queries*/
 @media screen and (min-width : 767px){
     .isesion.container{

@@ -86,19 +86,20 @@ $(document).ready(function(){
 
     /* validar imagenes */
     function validarImagen(){
+        var archivo = document.getElementById("imageperfiluc");
         var fileName = document.getElementById("imageperfiluc").value;
         var idxDot = fileName.lastIndexOf(".") + 1;
         var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
         if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
 
-            if(fileName.files && fileName.files[0]){
+            if(archivo.files && archivo.files[0]){
                 var ver = new FileReader();
 
                 ver.onload=function(e){
                     document.getElementById('visualizar').innerHTML =
-                    '<embed src="'+e.target.result+'" width="200" height="200" >';
+                    '<embed src="'+e.target.result+'" width="200" height="200" style="border-radius:50%; margin-top:40px;">';
                 }
-                ver.readAsDataURL(fileName.files[0]);
+                ver.readAsDataURL(archivo.files[0]);
             }
         }else{
             alert("Solo se permite archivos cuya extensión sean jpg, png o jpeg");
