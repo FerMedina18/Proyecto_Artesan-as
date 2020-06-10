@@ -6,11 +6,54 @@ from django.views.decorators.csrf import csrf_exempt
 from .serializer import *
 from .models import *
 from rest_framework import status
+from .forms import *
+from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
+from django.http import HttpResponse
+
 
 
 def index(request):
    categorias = Categoria.objects.all()
-   return render(request, 'index.html', {'categorias': categorias})
+   for cat in categorias:
+      if cat.nombre == "Desinfectantes":
+         categoria = cat
+      else:
+          categoria = "Hola"
+   return render(request, 'index.html')
+
+# def inicio_sesion(request):
+#     return render(request, 'cuentas/inicionormal.html')
+
+@csrf_protect
+def inicio_sesion(request):
+   csrfContext = RequestContext(request)
+   if request.method == "POST":
+       user = Usuario_Vendedor.objects.all()
+       for usuario in user:
+          if usuario.nombre_usuario == request.POST.get("nusuario") and usuario.contraseña == request.POST.get("pusuario"):
+             return render(request, 'index.html')
+          else: 
+            render(request, 'cuentas/inicionormal.html')
+
+   else:            
+      return render(request, 'cuentas/inicionormal.html')
+
+
+
+# def registrar(request):
+#    if request.method == "POST":
+#       form = PostLogin(request.POST)
+#       if form.is_valid():
+#          post = form.save(commit=False)
+#          post.nombre_usuario = request.nusuario
+#          post.contraseña = request.pusuario
+#          post.save()
+#          return redirect('index')
+      
+#       else:
+#          form = PostLogin()
+#       return render(request, '/templates/cuentas/inicionormal.html', {'form': form})
 
 
 # @api_view(["GET"])

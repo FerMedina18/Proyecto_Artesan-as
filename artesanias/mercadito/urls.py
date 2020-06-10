@@ -7,7 +7,9 @@ from .views import *
 app_name = 'mercadito'
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', index, name='index'),
+    # path('', login, name='login'),
+    path('', inicio_sesion, name='inicio_sesion'),
     # path('get_usuario_vendedor', get_usuario_vendedor),
     # path('get_categoria', get_categoria)
 ]
@@ -25,4 +27,4 @@ router.register('Puntuacion', Puntuacion_ViewSet),
 router.register('Orden', Orden_ViewSet),
 router.register('Detalle_Orden', DOrden_ViewSet),
 
-urlpatterns = router.urls
+urlpatterns += router.urls
