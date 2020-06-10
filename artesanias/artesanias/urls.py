@@ -17,14 +17,10 @@ from django.contrib import admin
 from django.urls import path, include 
 from django.conf import settings
 from django.conf.urls.static import static
-from mercadito.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('mercadito.urls', namespace='mercadito')),
-    path('', index, name='index'),
-    # path('', login, name='login'),
-    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),
+    path('', include(('mercadito.urls', 'mercadito')))
 ]#  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

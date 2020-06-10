@@ -3,15 +3,14 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .serializer import *
 from .models import *
 from rest_framework import status
-from .forms import *
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from django.http import HttpResponse
 
-
+from django.conf import settings
+import stripe
 
 def index(request):
    categorias = Categoria.objects.all()
@@ -21,13 +20,12 @@ def index(request):
       else:
           categoria = "Hola"
    return render(request, 'index.html')
-
 # def inicio_sesion(request):
 #     return render(request, 'cuentas/inicionormal.html')
 
 @csrf_protect
 def inicio_sesion(request):
-   csrfContext = RequestContext(request)
+   # csrfContext = RequestContext(request)
    if request.method == "POST":
        user = Usuario_Vendedor.objects.all()
        for usuario in user:
@@ -39,7 +37,36 @@ def inicio_sesion(request):
    else:            
       return render(request, 'cuentas/inicionormal.html')
 
+#para stripe
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
 
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        domain_url = 'http://localhost:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'name': 'Camiseta',
+                        'quantity': 1,
+                        'currency': 'usd',
+                        'amount': '1500',
+                    }
+                ]
+            )
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
 
 # def registrar(request):
 #    if request.method == "POST":

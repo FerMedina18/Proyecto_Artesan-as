@@ -19,6 +19,7 @@ psycopg2-binary = "==2.8.5"
 python-dateutil = "==1.5"
 Pillow = "==7.1.2"
 stripe = "==2.48.0"
+pylint-django = "*"
 
 [requires]
 python_version = "3.8"

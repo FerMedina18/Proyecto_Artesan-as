@@ -53,12 +53,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'artesanias.urls'
 
-SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,3 +146,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Para stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51GsTLgD0RqFrpGOSjPQkcZAVG7dv1OWRP98XXEXQk2zGZrsM75bmWKfY0bTCOslwEE8fgrcFONT9URv2wNMTPm6800i8jBNsxi'
+STRIPE_SECRET_KEY = 'sk_test_51GsTLgD0RqFrpGOSbuWbGwp4eROePqVsKSlNrJBAvNPGSA4qw9uwpG7OQb92Gr9zeOc9Np4K0Rb7gj6S7YrBpqal00qso6RPBK'

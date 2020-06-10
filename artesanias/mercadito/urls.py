@@ -4,12 +4,10 @@ from  rest_framework import routers
 from .viewsets import *
 from .views import *
 
-app_name = 'mercadito'
-
 urlpatterns = [
     path('', index, name='index'),
-    # path('', login, name='login'),
-    path('', inicio_sesion, name='inicio_sesion'),
+    path('inicio_sesion/', inicio_sesion),
+    path('config/', stripe_config)
     # path('get_usuario_vendedor', get_usuario_vendedor),
     # path('get_categoria', get_categoria)
 ]
