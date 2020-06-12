@@ -3,14 +3,26 @@ from .views import index
 from  rest_framework import routers
 from .viewsets import *
 from .views import *
+from . import views
+from django.views.generic import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.conf.urls import url
 
 urlpatterns = [
     path('', index, name='index'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
-    # path('registro/', registro, name='registro'),
     path('registrar/', registrar, name='registrar'),
-    path('config/', stripe_config),
+    path('inicio_sesion/', inicio_sesion),
+    path('config/', views.stripe_config),
+    path('create-checkout-session/', views.create_checkout_session),
+    url(
+        r'^favicon.ico$',
+        RedirectView.as_view(
+            url=staticfiles_storage.url('images/favicon.ico'),
+            permanent=False),
+        name='favicon'
+    ),
     # path('get_usuario_vendedor', get_usuario_vendedor),
     # path('get_categoria', get_categoria)
 ]

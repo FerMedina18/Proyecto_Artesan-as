@@ -18,7 +18,21 @@ header{
     padding-top: 20px;
     background: #fff;
     position: fixed;
+    z-index: 5000;
     width: 100%;
+}
+
+.margen{
+    margin-top: 101px;
+}
+
+.mensajes .alert{
+    display: block;
+    z-index: -100;
+}
+
+.mensajes .alert{
+    margin-bottom: 0;
 }
 
 header .logo a:hover{

@@ -105,4 +105,52 @@ $(document).ready(function(){
             alert("Solo se permite archivos cuya extensión sean jpg, png o jpeg");
         }   
     }
+    
+    $('#imageperfiluv').on('change', validarfoto);
+
+    function validarfoto(){
+        var archivo = document.getElementById("imageperfiluv");
+        var fileName = document.getElementById("imageperfiluv").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+
+            if(archivo.files && archivo.files[0]){
+                var ver = new FileReader();
+
+                ver.onload=function(e){
+                    document.getElementById('visualizar').innerHTML =
+                    '<embed src="'+e.target.result+'" width="200" height="200" style="border-radius:50%; margin-top:40px;">';
+                }
+                ver.readAsDataURL(archivo.files[0]);
+            }
+        }else{
+            alert("Solo se permite archivos cuya extensión sean jpg, png o jpeg");
+        }   
+    }
+
+    /* Para stripe */
+    console.log("Todo va bien!");
+    // Obtener la clace publica de stripe
+    fetch("/config/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+        // Inicializar Stripe.js
+        const stripe = Stripe(data.publicKey);
+
+        document.querySelector("#submitBtn").addEventListener("click", () => {
+        
+            // Obtener ID de sesión de pago
+            fetch("/create-checkout-session/")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+                console.log(data);
+                // Redireccionar a Stripe Checkout
+                return stripe.redirectToCheckout({sessionId: data.sessionId})
+            })
+            .then((res) => {
+                console.log(res);
+            });
+        });
+    });
 });

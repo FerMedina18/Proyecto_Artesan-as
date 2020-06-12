@@ -1,44 +1,44 @@
 main{
-    margin-top: 115px;
+    margin-top: 51px;
 }
 
-.isesion.container{
+.isesion.container, .rusuariov.container{
     margin-bottom: 60px;
     padding: 0px 25px;
     margin-top: 30px;
 }
 
-.isesion.container h1{
+.isesion.container h1, .rusuariov.container h1{
     margin-bottom: 10px;
 }
 
-.isesion.container p{
+.isesion.container p, .rusuariov.container p{
     color: #525252;
 }
 
-.isesion.container .form-group{
+.isesion.container .form-group, .rusuariov.container .form-group{
     line-height: 50px;
 }
 
-.rusuarioc.container{
+.rusuarioc.container, .rusuariov.container{
     padding: 40px 20px;
     max-width: 700px;
 }
 
-.rusuarioc.container textarea{
+.rusuarioc.container textarea, .rusuariov.container textarea{
     resize: none;
 }
 
-.imagenuc{
+.imagenuc, .imagenuv{
     display: flex;
     flex-direction: column;
 }
 
-#imageperfiluc{
+#imageperfiluc, #imageperfiluv{
     display: none;
 }
 
-div.container.ver{
+div.container.ver, div.container.mostrar{
     display: flex;
     justify-content: center;
 }
@@ -50,6 +50,23 @@ div.container.ver{
 .container.notap, .container.condicionesu{
     margin-top: 40px;
     margin-bottom: 100px;
+}
+
+.carousel-inner{
+    z-index: -1;
+    transform: translateY(-51px);
+}
+
+header{
+    z-index: 100;
+}
+
+.fch, .carousel-indicators{
+    transform: translateY(-51px);
+}
+
+.carousel-item{
+    overflow: hidden;
 }
 
 /* Media queries*/
@@ -69,5 +86,32 @@ div.container.ver{
         width: 550px;
         margin: 70px auto 195px auto;
         padding: 70px 20px;
+    }
+    .carousel-item{
+        height: 500px;
+    }
+}
+
+@media screen and (min-width: 1367px){
+    .rusuarioc.container, .rusuariov.container{
+        padding: 50px 20px;
+        max-width: 900px;
+    }
+    .carousel-item{
+        height: 650px;
+    }
+}
+
+
+@media screen and (min-width: 1600px){
+    .rusuarioc.container, .rusuariov.container{
+        padding: 60px 30px;
+        max-width: 1200px;
+    }
+}
+
+@media screen and (min-width: 1921px){
+    header{
+        max-width: 1920px;
     }
 }

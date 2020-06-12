@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/stylelayout.css' %}">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+
     <title>
         {% block head_title %}
         {% endblock %}
@@ -36,9 +38,9 @@
             </div>
         </form>
         <div class="usuarios">
-            <a href="login/">Iniciar Sesión</a>
-            <a href="logout">Cerrar Sesión</a>
-            <a href="registrar/">Registrar</a>
+            <a href="/login">Iniciar Sesión</a>
+            <a href="/logout">Cerrar Sesión</a>
+            <a href="/registrar">Registrar</a>
             <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
         </div>
 
@@ -63,6 +65,18 @@
     </header>
     
     {% include "menulateral.html" %}
+
+    <div class="margen">
+        <div class="mensajes">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-primary border text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 
     {% block content %}
     {% endblock content %}

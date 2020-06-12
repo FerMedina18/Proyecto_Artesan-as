@@ -15,11 +15,25 @@ from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
 from .forms import *
 import stripe
+from django.contrib import messages
 
 def index(request):
    return render(request, 'index.html')
 # def inicio_sesion(request):
 #     return render(request, 'cuentas/inicionormal.html')
+
+@csrf_protect
+def inicio_sesion(request):
+   # csrfContext = RequestContext(request)
+    if request.method == "POST":
+        user = Usuario_Vendedor.objects.all()
+        for usuario in user:
+            if usuario.nombre_usuario == request.POST.get("nusuario") and usuario.contraseña == request.POST.get("pusuario"):
+                return render(request, 'index.html')
+            else: 
+                render(request, 'cuentas/inicionormal.html')
+    else:            
+        return render(request, 'cuentas/inicionormal.html')
 
 @csrf_protect
 def login(request):
