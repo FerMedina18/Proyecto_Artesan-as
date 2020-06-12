@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
@@ -8,34 +8,65 @@ from rest_framework import status
 from django.views.decorators.csrf import csrf_protect
 from django.template import RequestContext
 from django.http import HttpResponse
-
 from django.conf import settings
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as do_login
+from django.contrib.auth import logout as do_logout
+from .forms import *
 import stripe
 
 def index(request):
-   categorias = Categoria.objects.all()
-   for cat in categorias:
-      if cat.nombre == "Desinfectantes":
-         categoria = cat
-      else:
-          categoria = "Hola"
    return render(request, 'index.html')
 # def inicio_sesion(request):
 #     return render(request, 'cuentas/inicionormal.html')
 
 @csrf_protect
-def inicio_sesion(request):
-   # csrfContext = RequestContext(request)
-   if request.method == "POST":
-       user = Usuario_Vendedor.objects.all()
-       for usuario in user:
-          if usuario.nombre_usuario == request.POST.get("nusuario") and usuario.contraseña == request.POST.get("pusuario"):
-             return render(request, 'index.html')
-          else: 
-            render(request, 'cuentas/inicionormal.html')
+def login(request):
+    csrfContext = RequestContext(request)
+    form = AuthenticationForm()
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
 
-   else:            
-      return render(request, 'cuentas/inicionormal.html')
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username = username, password = password)
+
+            if user is not None:
+                do_login(request, user)
+
+                return redirect('/')
+    
+    return render(request, "cuentas/login.html", {'form': form})
+
+def logout(request):
+    do_logout(request)
+
+    return redirect('login')
+
+# def registro(request):
+#     form = CustomUserCreationForm()
+#     if request.method == "POST":
+#         form = CustomUserCreationForm(data=request.POST)
+#         if form.is_valid:
+#             user = form.save
+#             if user is not None:
+#                 do_login(request, user)
+
+#                 return redirect('/')
+    
+#     form.fields['username'].help_text = None
+#     form.fields['password1'].help_text = None
+#     form.fields['password2'].help_text = None
+#     form.fields['email'].help_text = None
+
+#     return render(request, "cuentas/registrovendedor.html", {'form': form})
+
+def registrar(request):
+    form = Registrar()
+    return render(request, 'cuentas/registrovendedor.html', {'form': form})
 
 #para stripe
 @csrf_exempt

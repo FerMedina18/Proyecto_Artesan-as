@@ -1,7 +1,23 @@
 from django import forms
 from .models import *
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 
-class PostLogin(forms.ModelForm):
+class CustomUserLogin(AuthenticationForm):
     class Meta:
         model = Usuario_Vendedor
-        fields = ('nombre_usuario', 'contraseña')
+        fields = ('username', 'password')
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = Usuario_Vendedor
+        fields = ('username', 'password', 'email')
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = Usuario_Vendedor
+        fields = ('username', 'password')
+
+class Registrar(forms.ModelForm):
+    class Meta:
+        model = Perfil_Vendedor
+        fields = ('__all__')

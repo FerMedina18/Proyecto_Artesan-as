@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+    Iniciar sesión
+{% endblock %}
+
+{% block content %}
+
+<h2>Iniciar sesión</h2>
+<main>
+    <div class="isesion container">
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Login</button>
+        </form>
+        
+        <hr />
+        <a href="#">Registrar usuario</a>
+    </div>
+</main>
+
+{% endblock content %}

@@ -45,6 +45,3 @@ class Orden_ViewSet(viewsets.ModelViewSet):
 class DOrden_ViewSet(viewsets.ModelViewSet):
     queryset = Detalle_Orden.objects.all()
     serializer_class = DOrdenSerializer
-
-
-

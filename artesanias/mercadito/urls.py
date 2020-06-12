@@ -6,8 +6,11 @@ from .views import *
 
 urlpatterns = [
     path('', index, name='index'),
-    path('inicio_sesion/', inicio_sesion),
-    path('config/', stripe_config)
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
+    # path('registro/', registro, name='registro'),
+    path('registrar/', registrar, name='registrar'),
+    path('config/', stripe_config),
     # path('get_usuario_vendedor', get_usuario_vendedor),
     # path('get_categoria', get_categoria)
 ]
@@ -24,5 +27,6 @@ router.register('Image', Imagen_ViewSet),
 router.register('Puntuacion', Puntuacion_ViewSet),
 router.register('Orden', Orden_ViewSet),
 router.register('Detalle_Orden', DOrden_ViewSet),
+# router.register('Profile', Profile_ViewSet),
 
 urlpatterns += router.urls

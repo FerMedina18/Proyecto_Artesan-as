@@ -86,5 +86,16 @@
             <button type="submit" class="btn btn-primary">Iniciar</button>
         </form>    
     </div>
+
+    <!-- Aqui renderiza el formulario -->
+    <div class="rusuariov container" enctype="multipart/form-data">
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrar</button>
+        </form>
+        
+        <hr />
+    </div>
+    <!-- Aqui termina el formulario -->
 </main>
 {% endblock content %}
