@@ -27,7 +27,6 @@ ul{
     left: -270px;
     top: 0px;
     height: 100%;
-    z-index: 1000;
     transition: all 0.25s linear;
     overflow-y: auto;
 }

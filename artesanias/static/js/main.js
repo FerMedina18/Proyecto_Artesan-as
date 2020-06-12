@@ -153,4 +153,9 @@ $(document).ready(function(){
             });
         });
     });
+
+    if($("div.alert")[0]){
+       $("main").css("margin-top", "0px");
+    }
+
 });

@@ -2,6 +2,10 @@ main{
     margin-top: 51px;
 }
 
+.principal{
+    margin-top: 0px;
+}
+
 .isesion.container, .rusuariov.container{
     margin-bottom: 60px;
     padding: 0px 25px;
@@ -69,6 +73,103 @@ header{
     overflow: hidden;
 }
 
+#submitBtn, #addCartBtn{
+    border-radius: 0;
+    margin: 10px 0;
+}
+
+.imagenproducto{
+    width: 100%;
+}
+
+.valoracion{
+    float: right;
+}
+
+.card{
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    padding-bottom: 5px;
+    overflow: hidden;
+}
+
+.view.overlay{
+    cursor: pointer;
+}
+
+#novedades{
+    margin-top: 40px;
+}
+
+/* Productos */
+.card-body p a{
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.card-body p{
+    margin-bottom: 10px;
+}
+
+.convaloracion p{
+    margin: 0px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-body .personas{
+    font-size: 14px;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.convaloracion{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.convaloracion i{
+    font-size: 22px;
+    color:#b3abab;
+    cursor: pointer;
+}
+
+.precio{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.estado{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+}
+
+.estado p{
+    padding: 5px;
+    margin: 0px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.abajo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.abajo .vermas{
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 12px 16px;
+}
+
+.abajo .vermas:hover{
+    background: #e8e8e8;
+}
+
 /* Media queries*/
 @media screen and (min-width : 767px){
     .isesion.container{
@@ -86,9 +187,30 @@ header{
         width: 550px;
         margin: 70px auto 195px auto;
         padding: 70px 20px;
+        
     }
+    
     .carousel-item{
         height: 500px;
+    }
+    
+    .carousel-inner{
+        transform: translateY(-10px);
+    }
+
+    .fch, .carousel-indicators{
+        transform: translateY(-10px);
+    }
+}
+
+
+@media screen and (max-width: 500px){
+    .carousel-inner{
+        transform: translateY(-20px);
+    }
+
+    .fch, .carousel-indicators{
+        transform: translateY(-20px);
     }
 }
 
@@ -99,6 +221,13 @@ header{
     }
     .carousel-item{
         height: 650px;
+    }
+    .carousel-inner{
+        transform: translateY(-51px);
+    }
+
+    .fch, .carousel-indicators{
+        transform: translateY(-51px);
     }
 }
 

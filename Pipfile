@@ -20,6 +20,7 @@ python-dateutil = "==1.5"
 Pillow = "==7.1.2"
 stripe = "==2.48.0"
 pylint-django = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.8"

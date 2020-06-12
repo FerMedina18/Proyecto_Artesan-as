@@ -32,11 +32,44 @@
         <span class="sr-only">Siguiente</span>
     </a>
 </div>
-<main>
-    <section class="section">
-        <div class="container">
-          <button class="btn btn-primary" id="submitBtn">Purchase!</button>
+<main class="principal">
+
+  <div class="container">
+    <h1>Novedades</h1>
+    <section class="text-center mb-4" id="novedades">
+
+      <div class="row wow fadeIn">
+
+        {% for item in object_list %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card">
+              <div class="view overlay">
+                <img src="{% static 'images/p1.jpg' %}" alt="" class="imagenproducto">
+              </div>
+              <div class="estado">
+                <p>Estado</p>
+              </div>
+              <div class="card-body">
+                <p><a href="#">Categoria</a></p>
+                <div class="container convaloracion">
+                  <p>Nombre del producto</p>
+                  <i class="fas fa-heart" id="corazon"></i>
+                </div>
+                <p class="personas">A X personas les gusta este producto.</p>
+                <p class="precio">$ 45.00</p>
+                <div class="abajo">
+                  <div class="vermas">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                  <button class="btn btn-success">Agregar al carrito</button>
+                </div>
+              </div>
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </section>
+  </div>
+  
 </main>
 {% endblock content %}

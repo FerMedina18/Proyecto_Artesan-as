@@ -18,13 +18,39 @@ import stripe
 from django.contrib import messages
 
 def index(request):
-   return render(request, 'index.html')
+    # messages.success(request, "Todo bien")
+    object_list =[
+        {'get_category_display':"Ropa",
+         'title':"camisa",
+         'get_label_display':"Primary",
+         'discount_price':23,
+         'price':50
+        },
+        {'get_category_display':"Madera",
+         'title':"Mesa",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':40
+        },
+        {'get_category_display':"Barro",
+         'title':"Jarron",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':60
+        },
+        {'get_category_display':"Instrumento",
+         'title':"Guitarra",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':80
+        }
+    ]
+    return render(request, 'index.html', {'object_list' : object_list})
 # def inicio_sesion(request):
 #     return render(request, 'cuentas/inicionormal.html')
 
 def inicio_sesion(request):
    # csrfContext = RequestContext(request)
-         
     return render(request, 'cuentas/inicionormal.html')
 
 @csrf_protect
@@ -44,7 +70,6 @@ def login(request):
                 do_login(request, user)
 
                 return redirect('/')
-    
     return render(request, "cuentas/login.html", {'form': form})
 
 def logout(request):

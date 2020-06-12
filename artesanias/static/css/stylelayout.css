@@ -18,8 +18,12 @@ header{
     padding-top: 20px;
     background: #fff;
     position: fixed;
-    z-index: 5000;
     width: 100%;
+    z-index: 2000;
+}
+
+.sidenav{
+    z-index: 5000;
 }
 
 .margen{
@@ -28,7 +32,6 @@ header{
 
 .mensajes .alert{
     display: block;
-    z-index: -100;
 }
 
 .mensajes .alert{
