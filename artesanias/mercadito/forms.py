@@ -17,7 +17,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = Usuario_Vendedor
         fields = ('username', 'password')
 
-class Registrar(forms.ModelForm):
+class CustomProfileCreationForm(forms.ModelForm):
     class Meta:
         model = Perfil_Vendedor
         fields = ('__all__')

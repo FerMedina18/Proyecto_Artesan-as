@@ -22,18 +22,10 @@ def index(request):
 # def inicio_sesion(request):
 #     return render(request, 'cuentas/inicionormal.html')
 
-@csrf_protect
 def inicio_sesion(request):
    # csrfContext = RequestContext(request)
-    if request.method == "POST":
-        user = Usuario_Vendedor.objects.all()
-        for usuario in user:
-            if usuario.nombre_usuario == request.POST.get("nusuario") and usuario.contraseña == request.POST.get("pusuario"):
-                return render(request, 'index.html')
-            else: 
-                render(request, 'cuentas/inicionormal.html')
-    else:            
-        return render(request, 'cuentas/inicionormal.html')
+         
+    return render(request, 'cuentas/inicionormal.html')
 
 @csrf_protect
 def login(request):
@@ -58,7 +50,7 @@ def login(request):
 def logout(request):
     do_logout(request)
 
-    return redirect('login')
+    return redirect('/')
 
 # def registro(request):
 #     form = CustomUserCreationForm()
@@ -79,8 +71,22 @@ def logout(request):
 #     return render(request, "cuentas/registrovendedor.html", {'form': form})
 
 def registrar(request):
-    form = Registrar()
-    return render(request, 'cuentas/registrovendedor.html', {'form': form})
+    form1 = CustomUserCreationForm()
+    form2 = CustomProfileCreationForm()
+    if request.method == "POST":
+        form1 = CustomUserCreationForm(data=request.POST)
+        form2 = CustomProfileCreationForm(data=request.POST)
+
+        if form1.is_valid() and form2.is_valid():
+            user = form1.save(commit=False)
+            profile = form2.save()
+
+            if user is not None and profile is not None:
+                do_login(request, user)
+
+                return redirect('/')
+
+    return render(request, 'cuentas/registrovendedor.html', {'form1': form1, 'form2': form2})
 
 #para stripe
 @csrf_exempt

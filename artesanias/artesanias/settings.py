@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'mercadito.apps.MercaditoConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

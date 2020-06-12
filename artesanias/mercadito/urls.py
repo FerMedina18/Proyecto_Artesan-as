@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('registrar/', registrar, name='registrar'),
-    path('inicio_sesion/', inicio_sesion),
+    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     url(
