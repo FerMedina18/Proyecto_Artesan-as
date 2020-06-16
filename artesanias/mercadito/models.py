@@ -7,6 +7,11 @@ from django.conf import settings
 
 class Usuario_Vendedor(AbstractUser):
     avatar = models.ImageField(blank=True)
+    ROL = (
+        ('C', 'Comprador'),
+        ('V', 'Vendedor'),
+    )
+    role = models.CharField(max_length=1, choices=ROL)
 
 class Perfil_Vendedor(models.Model):
     user = models.OneToOneField(Usuario_Vendedor, on_delete=models.CASCADE, related_name="profile")
@@ -15,7 +20,6 @@ class Perfil_Vendedor(models.Model):
     apellidos = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=200)
     telefono = models.CharField(max_length=12)
-    correo = models.EmailField(unique=True)
     direccion = models.TextField(max_length=300)
     descripcion = models.TextField(default='', max_length=500)
     estado = models.BooleanField(default=True)

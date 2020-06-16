@@ -10,8 +10,7 @@ class CustomUserLogin(AuthenticationForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = Usuario_Vendedor
-        fields = ('username', 'password', 'email')
-
+        fields = ('username', 'email', 'password1', 'avatar')
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = Usuario_Vendedor
@@ -20,4 +19,5 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomProfileCreationForm(forms.ModelForm):
     class Meta:
         model = Perfil_Vendedor
-        fields = ('__all__')
+        fields = ('portada', 'nombres', 'apellidos', 'ciudad', 
+        'telefono', 'direccion', 'descripcion')

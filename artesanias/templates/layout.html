@@ -40,11 +40,11 @@
         <div class="usuarios">
             {% if not user.is_authenticated %}
                 <a href="/login">Iniciar Sesión</a>
-                <a href="/registrar">Registrar</a>
+                <a href="/register">Registrar</a>
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="/logout">Cerrar Sesión</a>
-                <p>{{ user.id }}</p>
+                <p>{{ user }}</p>
             {% endif %}
             
             <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>

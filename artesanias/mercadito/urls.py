@@ -12,8 +12,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
-    path('registrar/', registrar, name='registrar'),
-    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),
+    path('register/', register, name='register'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     url(
