@@ -40,7 +40,6 @@
         <div class="usuarios">
             {% if not user.is_authenticated %}
                 <a href="/login">Iniciar Sesión</a>
-                <a href="/register">Registrar</a>
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="/logout">Cerrar Sesión</a>
@@ -65,7 +64,7 @@
                 </ul>
             </div>
             <a href="#">Registrarse</a>
-            <a href="#">Vender</a>
+            <a href="/register">Vender</a>
         </div>
         <div class="fade-sm"></div>
     </header>

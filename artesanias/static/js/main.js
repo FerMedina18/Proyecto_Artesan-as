@@ -26,6 +26,8 @@ $(document).ready(function(){
 	function clickAction(){
 		$('.sidenav').toggleClass('active');
         $('.fade-bg').toggleClass('active');
+        $('.sidemenu li:has(ul)').removeClass('active');
+        $('.sidemenu li:has(ul)').children('ul').slideUp();
 	}
 
     $(window).resize(function(){
@@ -60,8 +62,26 @@ $(document).ready(function(){
             $('.fade-sm').addClass('active');
         }
     });
-
+    
     /* regresar arriba */
+
+    jQuery.extend(jQuery.expr[':'], {  
+        inview: function (elem) {
+            var t = $(elem);
+            var offset = t.offset();
+            var win = $(window); 
+            var winST = win.scrollTop();
+            var elHeight = t.outerHeight(true);
+    
+            if ( offset.top > winST - elHeight && offset.top < winST + elHeight + win.height()) {
+                return true;    
+            }    
+            return false;  
+        }
+    })
+
+    /* $("footer").is(":inview") */
+
     mbutton = document.getElementById("mbutton");
 
     window.onscroll = function(){scrollFunction()};
@@ -73,7 +93,7 @@ $(document).ready(function(){
             mbutton.style.display = "none";
         }
     }
-    
+
     $('#mbutton').on('click', totop);
 
     function totop(){
@@ -130,7 +150,7 @@ $(document).ready(function(){
     }
 
     /* Para stripe */
-    console.log("Todo va bien!");
+    /*console.log("Todo va bien!");
     // Obtener la clace publica de stripe
     fetch("/config/")
     .then((result) => { return result.json(); })
@@ -152,7 +172,7 @@ $(document).ready(function(){
                 console.log(res);
             });
         });
-    });
+    });*/
 
     if($("div.alert")[0]){
        $("main").css("margin-top", "0px");
