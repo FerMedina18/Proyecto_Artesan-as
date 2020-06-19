@@ -154,10 +154,10 @@ def create_checkout_session(request):
                 mode='payment',
                 line_items=[
                     {
-                        'name': 'Camiseta',
-                        'quantity': 1,
-                        'currency': 'usd',
-                        'amount': '1500',
+                        'Nombre': 'Camiseta',
+                        'Cantidad': 1,
+                        'Moneda': 'usd',
+                        'Costo': '1500',
                     }
                 ]
             )
