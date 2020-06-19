@@ -47,6 +47,76 @@ def index(request):
     ]
     return render(request, 'index.html', {'object_list' : object_list})
 
+def condiciones(request):
+    return render(request, 'general/condicionesdeuso.html')
+
+def politica(request):
+    return render(request, 'general/politicaprivacidad.html')
+
+def productos(request):
+    object_list =[
+        {'get_category_display':"Ropa",
+         'title':"camisa",
+         'get_label_display':"Primary",
+         'discount_price':23,
+         'price':50
+        },
+        {'get_category_display':"Madera",
+         'title':"Mesa",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':40
+        },
+        {'get_category_display':"Barro",
+         'title':"Jarron",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':60
+        },
+        {'get_category_display':"Instrumento",
+         'title':"Guitarra",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':80
+        },{'get_category_display':"Ropa",
+         'title':"camisa",
+         'get_label_display':"Primary",
+         'discount_price':23,
+         'price':50
+        },
+        {'get_category_display':"Madera",
+         'title':"Mesa",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':40
+        },
+        {'get_category_display':"Barro",
+         'title':"Jarron",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':60
+        },
+        {'get_category_display':"Instrumento",
+         'title':"Guitarra",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':80
+        },
+        {'get_category_display':"Barro",
+         'title':"Jarron",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':60
+        },
+        {'get_category_display':"Instrumento",
+         'title':"Guitarra",
+         'get_label_display':"Primary",
+         'discount_price':0,
+         'price':80
+        }
+    ]
+    return render(request, 'productos.html', {'object_list' : object_list})
+
 @csrf_protect
 def login(request):
     csrfContext = RequestContext(request)

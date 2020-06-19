@@ -40,11 +40,6 @@
         <div class="usuarios">
             {% if not user.is_authenticated %}
                 <a href="/login">Iniciar Sesión</a>
-<<<<<<< HEAD
-                <a href="/registro_vendedor">Registrar</a>
-                <a href="/registro_comprador">Registrar Comprador</a>
-=======
->>>>>>> 61b0e59a21dc50dd6d90c9069af1335876a1d9a8
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="/logout">Cerrar Sesión</a>
@@ -68,8 +63,8 @@
                     <li><a href="#">Instrumentos</a></li>
                 </ul>
             </div>
-            <a href="#">Registrarse</a>
-            <a href="/register">Vender</a>
+            <a href="/registro_comprador">Registrarse</a>
+            <a href="/registro_vendedor">Vender</a>
         </div>
         <div class="fade-sm"></div>
     </header>
@@ -95,8 +90,8 @@
         <button id="mbutton" title="Autoscroll"><i class="fas fa-arrow-up"></i></button>
     </div>
     <footer>
-        <a href="">Condiciones de uso</a>
-        <a href="">Política de privacidad</a>
+        <a href="/condiciones">Condiciones de uso</a>
+        <a href="/politica">Política de privacidad</a>
         <p>&copy;Todos los derechos reservados, El mercadito</p>
     </footer>
 

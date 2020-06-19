@@ -239,17 +239,19 @@ a.carrito{
     z-index: 99;
     border:none;
     outline:none;
-    background: orange;
+    background: #ffa500;
     color:#fff;
     cursor: pointer;
     width: 45px;
     height: 46px;
     font-size: 16px;
     border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #mbutton:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) ;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background: #ff8c00;
 }
 
 /*Footer*/
@@ -277,6 +279,9 @@ footer a:hover{
     color: #fff;
 }
 
+main{
+    padding-bottom: 140px;
+}
 
 @media screen and (max-width: 875px){
     .barrabusqueda input{

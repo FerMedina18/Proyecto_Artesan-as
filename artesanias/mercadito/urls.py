@@ -14,6 +14,9 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('registro_vendedor/', registro_vendedor, name='registro_vendedor'),
     path('registro_comprador/', registro_comprador, name='registro_comprador'),
+    path('condiciones/', views.condiciones, name='condiciones'),
+    path('politica/', views.politica, name='politica'),
+    path('productos/', views.productos, name='productos'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     url(
