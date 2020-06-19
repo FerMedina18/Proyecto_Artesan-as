@@ -5,16 +5,12 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
-class Usuario_Vendedor(AbstractUser):
+class Usuario(AbstractUser):
     avatar = models.ImageField(blank=True)
-    ROL = (
-        ('C', 'Comprador'),
-        ('V', 'Vendedor'),
-    )
-    role = models.CharField(max_length=1, choices=ROL)
+    rol = models.CharField(max_length=20)
 
 class Perfil_Vendedor(models.Model):
-    user = models.OneToOneField(Usuario_Vendedor, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="profile")
     portada = models.ImageField(blank=True)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
@@ -24,26 +20,17 @@ class Perfil_Vendedor(models.Model):
     descripcion = models.TextField(default='', max_length=500)
     estado = models.BooleanField(default=True)
 
-@receiver(post_save, sender=Usuario_Vendedor)
+@receiver(post_save, sender=Usuario)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Perfil_Vendedor.objects.create(user=instance)
 
-@receiver(post_save, sender=Usuario_Vendedor)
+@receiver(post_save, sender=Usuario)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-class Usuario_Comprador(models.Model):
-    nombre_usuario = models.CharField(max_length=30)
-    correo = models.EmailField(unique=True)
-    contraseña = models.CharField(max_length=80)
-
-    def __str__(self):
-        return self.nombre_usuario
-
 class Perfil_Comprador(models.Model):
-    usuario_comprador = models.OneToOneField(Usuario_Comprador, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to="usuarioComprador", blank=True)
+    usuario_comprador = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=200)
@@ -53,11 +40,8 @@ class Perfil_Comprador(models.Model):
     descripcion = models.TextField(default='', max_length=500)
     estado = models.BooleanField(default=True)
 
-    def __str__(self):
-        return self.usuario_comprador
-
 class Producto(models.Model):
-    usuario_vendedor = models.ForeignKey(Usuario_Vendedor, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=200)
     precio = models.FloatField()
     existencia = models.PositiveIntegerField(default=0)
@@ -88,14 +72,14 @@ class Imagen(models.Model):
 
 class Puntuacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    usuario_comprador = models.ForeignKey(Usuario_Comprador, on_delete=models.CASCADE)
+    usuario_comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
 
     def __str__(self):
         return self.producto
 
 class Orden(models.Model):
-    usuario_comprador = models.ForeignKey(Usuario_Comprador, on_delete=models.CASCADE)
+    usuario_comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_solicitud = models.DateField(auto_now=True)
     fecha_envio = models.DateField(auto_now=False)
 

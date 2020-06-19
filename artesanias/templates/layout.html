@@ -40,7 +40,8 @@
         <div class="usuarios">
             {% if not user.is_authenticated %}
                 <a href="/login">Iniciar Sesión</a>
-                <a href="/register">Registrar</a>
+                <a href="/registro_vendedor">Registrar</a>
+                <a href="/registro_comprador">Registrar Comprador</a>
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="/logout">Cerrar Sesión</a>
@@ -53,7 +54,7 @@
         <div class="submenu">
             <div class="catg">
                 <div class="boton">
-                    <a href="#" class="boton">categorias
+                    <a href="#" class="boton">Categorías
                         <i class="fas fa-chevron-down"></i>
                     </a>
                 </div>

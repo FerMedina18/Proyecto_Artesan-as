@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'mercadito.Usuario_Vendedor'
+AUTH_USER_MODEL = 'mercadito.Usuario'
 
 
 # Internationalization

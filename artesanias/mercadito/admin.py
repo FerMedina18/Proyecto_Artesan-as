@@ -7,13 +7,13 @@ from .forms import *
 from .models import *
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = Usuario_Vendedor
+    add_form = CrearUsuario
+    form = ModificarUsuario
+    model = Usuario
     list_display = ['username', 'password']
 
-admin.site.register(Usuario_Comprador)
-admin.site.register(Usuario_Vendedor)
+
+admin.site.register(Usuario)
 admin.site.register(Perfil_Comprador)
 admin.site.register(Perfil_Vendedor)
 admin.site.register(Producto)
@@ -23,5 +23,5 @@ admin.site.register(Puntuacion)
 admin.site.register(Orden)
 admin.site.register(Detalle_Orden)
 admin.site.register(Imagen)
-admin.site.unregister(Usuario_Vendedor)
-admin.site.register(Usuario_Vendedor, CustomUserAdmin)
+admin.site.unregister(Usuario)
+admin.site.register(Usuario, CustomUserAdmin)

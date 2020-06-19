@@ -12,7 +12,8 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
-    path('register/', register, name='register'),
+    path('registro_vendedor/', registro_vendedor, name='registro_vendedor'),
+    path('registro_comprador/', registro_comprador, name='registro_comprador'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     url(
@@ -22,14 +23,13 @@ urlpatterns = [
             permanent=False),
         name='favicon'
     ),
-    # path('get_usuario_vendedor', get_usuario_vendedor),
+    # path('get_Usuario', get_Usuario),
     # path('get_categoria', get_categoria)
 ]
 
 router = routers.SimpleRouter()
-router.register('Usuario_Vendedor', UVendedor_ViewSet),
+router.register('Usuario', Usuario_ViewSet),
 router.register('Perfil_Vendedor', PVendedor_ViewSet),
-router.register('Usuario_Comprador', UComprador_ViewSet),
 router.register('Perfil_Comprador', PComprador_ViewSet),
 router.register('Producto', Producto_ViewSet),
 router.register('Categoria', Categoria_ViewSet),

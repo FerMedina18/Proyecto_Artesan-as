@@ -2,17 +2,13 @@ from rest_framework import viewsets
 from .models import *
 from .serializer import *
 
-class UVendedor_ViewSet(viewsets.ModelViewSet):
-    queryset = Usuario_Vendedor.objects.all()
-    serializer_class = UVendedorSerializer
+class Usuario_ViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
 class PVendedor_ViewSet(viewsets.ModelViewSet):
     queryset = Perfil_Vendedor.objects.all()
     serializer_class = PVendedorSerializer
-
-class UComprador_ViewSet(viewsets.ModelViewSet):
-    queryset = Usuario_Comprador.objects.all()
-    serializer_class = UCompradorSerializer
 
 class PComprador_ViewSet(viewsets.ModelViewSet):
     queryset = Perfil_Comprador.objects.all()

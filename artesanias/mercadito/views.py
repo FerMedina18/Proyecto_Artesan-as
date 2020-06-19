@@ -51,9 +51,9 @@ def index(request):
 def login(request):
     csrfContext = RequestContext(request)
     p = "nada"
-    form = AuthenticationForm()
+    form = UsuarioLogin()
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = UsuarioLogin(data=request.POST)
         p = request.POST['tipo']
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -74,20 +74,23 @@ def logout(request):
 
     return redirect('/')
 
-def register(request):
-    form = CustomUserCreationForm()
-    form1 = CustomProfileCreationForm()
+def registro_vendedor(request):
+    form = CrearUsuario()
+    form1 = CrearPerfilVendedor()
     if request.method == "POST":
-        form = CustomUserCreationForm(data=request.POST)
-        form1 = CustomProfileCreationForm(data=request.POST)
-        if form.is_valid() and form1.is_valid():
-            user = form.save()
-            user.role = "vendedor"
-            
-            i = Usuario_Vendedor.objects.last()
-            profile = form1.save(commit=False)
-            profile.user = i
-            profile.estado = True
+        form = CrearUsuario(data=request.POST)
+        form1 = CrearPerfilVendedor(data=request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.rol = "vendedor"
+            user.save()
+            form.save_m2m()
+
+            if form1.is_valid():  
+                i = Usuario.objects.last()
+                profile = form1.save(commit=False)
+                profile.user = i
+                profile.estado = True
 
             if user is not None and profile is not None:
                 do_login(request, user)
@@ -100,6 +103,36 @@ def register(request):
     form.fields['email'].help_text = None
     
     return render(request, "cuentas/registro.html", {'form': form, 'form1': form1})
+
+def registro_comprador(request):
+    form = CrearUsuario()
+    form1 = CrearPerfilComprador()
+    if request.method == "POST":
+        form = CrearUsuario(data=request.POST)
+        form1 = CrearPerfilComprador(data=request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.rol = "comprador"
+            user.save()
+            form.save_m2m()
+
+            if form1.is_valid():  
+                i = Usuario.objects.last()
+                profile = form1.save(commit=False)
+                profile.user = i
+                profile.estado = True
+
+            if user is not None and profile is not None:
+                do_login(request, user)
+
+                return redirect('/')
+
+    form.fields['username'].help_text = None
+    form.fields['password1'].help_text = None
+    form.fields['password2'].help_text = None
+    form.fields['email'].help_text = None
+    
+    return render(request, "cuentas/registrocomprador.html", {'form': form, 'form1': form1})
 
 #para stripe
 @csrf_exempt
@@ -145,17 +178,17 @@ def create_checkout_session(request):
 # @api_view(["GET"])
 # @csrf_exempt
 # @permission_classes([IsAuthenticated])
-# def get_usuario_vendedor(request):
+# def get_Usuario(request):
 #    user = request.user.id
-#    usuario_vendedor = Usuario_Vendedor(added_by=user)
+#    Usuario = Usuario(added_by=user)
 #    serializer = UVendedorSerializer
-#    return JsonResponse({'usuario_vendedor': serializer.data}, safe=False, status=status.HTTP_200_OK)
+#    return JsonResponse({'Usuario': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
-# def get_usuario_vendedor(request):
+# def get_Usuario(request):
 #    user = request.user.id
-#    usuario_comprador = Usuario_Comprador(added_by=user)
+#    usuario = usuario(added_by=user)
 #    serializer = UCompradorSerializer
-#    return JsonResponse({'usuario_comprador': serializer.data}, safe=False, status=status.HTTP_200_OK)
+#    return JsonResponse({'usuario': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 # def get_perfil_vendedor(request):
 #    user = request.user.id

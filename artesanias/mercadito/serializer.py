@@ -1,19 +1,14 @@
 from .models import *
 from rest_framework import serializers
 
-class UVendedorSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario_Vendedor
+        model = Usuario
         fields = ('__all__')
 
 class PVendedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Perfil_Vendedor
-        fields = ('__all__')
-
-class UCompradorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuario_Comprador
         fields = ('__all__')
 
 class PCompradorSerializer(serializers.ModelSerializer):
