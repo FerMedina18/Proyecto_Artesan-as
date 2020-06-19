@@ -86,12 +86,12 @@
   <div class="container destacados">
     <h1>Productos <span>más vendidos</span></h1>
     <h5>Los productos que tienen el número de compras más alto.</h5>
-      <div class=" row wow fadeIn">
+      <div class=" row wow fadeIn index">
 
         {% for item in object_list %}
         <div class="col-lg-3 col-md-6 mb-4">
     
-          <div class="card">
+          <div class="card index">
     
             <div class="view overlay">
               <img src="{% static 'images/p2.jpg' %}" class="card-img-top">
