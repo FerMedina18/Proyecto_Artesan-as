@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import index
 from  rest_framework import routers
 from .viewsets import *
@@ -7,6 +7,7 @@ from . import views
 from django.views.generic import RedirectView
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', index, name='index'),
@@ -14,6 +15,9 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('registro_vendedor/', registro_vendedor, name='registro_vendedor'),
     path('registro_comprador/', registro_comprador, name='registro_comprador'),
+    path('editar_usuario', editar_usuario, name='editar_usuario'),
+    path('editar_perfil_comprador', editar_perfil_comprador, name='editar_perfil_comprador'),
+    path('editar_perfil_vendedor', editar_perfil_vendedor, name='editar_perfil_vendedor'),
     path('condiciones/', views.condiciones, name='condiciones'),
     path('politica/', views.politica, name='politica'),
     path('productos/', views.productos, name='productos'),

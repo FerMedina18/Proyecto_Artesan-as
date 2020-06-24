@@ -10,7 +10,7 @@ class Usuario(AbstractUser):
     rol = models.CharField(max_length=20)
 
 class Perfil_Vendedor(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="profile_vendedor")
     portada = models.ImageField(blank=True)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
@@ -20,25 +20,31 @@ class Perfil_Vendedor(models.Model):
     descripcion = models.TextField(default='', max_length=500)
     estado = models.BooleanField(default=True)
 
-@receiver(post_save, sender=Usuario)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Perfil_Vendedor.objects.create(user=instance)
-
-@receiver(post_save, sender=Usuario)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
 class Perfil_Comprador(models.Model):
-    usuario_comprador = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="profile_comprador")
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=200)
     telefono = models.CharField(max_length=12)
-    correo = models.EmailField(unique=True)
     direccion = models.TextField(max_length=300)
     descripcion = models.TextField(default='', max_length=500)
     estado = models.BooleanField(default=True)
+
+# @receiver(post_save, sender=Usuario)
+# def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        if instance.rol == "vendedor":
+#             Perfil_Vendedor.objects.create(user=instance)
+
+#        elif instance.rol == "comprador":
+#            Perfil_Comprador.objects.create(user=instance)
+
+# @receiver(post_save, sender=Usuario)
+# def save_user_profile(sender, instance, **kwargs):  
+#     if instance.rol == "vendedor":
+#         instance.profile_vendedor.save()
+#     elif instance.rol == "comprador":
+#         instance.profile_comprador.save()
 
 class Producto(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

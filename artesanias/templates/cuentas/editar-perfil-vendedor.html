@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+Registro
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="rusuariov container" enctype="multipart/form-data">
+        <h2>Editar Perfil</h2>
+
+        <form method="POST">{% csrf_token %}
+            {% load widget_tweaks%}
+
+            <div class="imagenuv form-group">
+                <label for="imageperfiluv">Seleccione una foto para su negocio</label>
+                {% render_field form.portada type="file" class="form-control-file" id="imageperfiluv" accept=".png, .jpg, .jpeg" %}
+                <input type="button" class="btn btn-primary" value="Subir imagen"
+                    onclick="document.getElementById('imageperfiluv').click()">
+
+                <div class="container mostrar">
+                    <div id="visualizar">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombresuv">Nombres</label>
+                {% render_field form.nombres type="text" class="form-control" placeholder="Ingrese su primer y segundo nombre" %}
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="apellidosuv">Apellidos</label>
+                {% render_field form.apellidos type="text" class="form-control" placeholder="Ingrese su primer y segunfo apellido" %}
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="ciudaduv">Ciudad</label>
+                {% render_field form.ciudad type="text" class="form-control" placeholder="Ingrese la ciudad en la que reside" %}
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="telefonouv">Telefono</label>
+                {% render_field form.telefono type="text" class="form-control" placeholder="Ingrese su número de teléfono" %}
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="direccionuv">Dirección</label>
+                {% render_field form.direccion type="text" class="form-control" placeholder="Ingrese la dirección" %}
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="descripcionnuv">Descripción</label>
+                {% render_field form.descripcion type="text" class="form-control" placeholder="Escriba una descripción personal" %}
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
+    </div>
+</main>
+{% endblock content %}

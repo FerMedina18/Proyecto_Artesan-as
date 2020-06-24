@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as do_login
 from django.contrib.auth import logout as do_logout
+from django.contrib.auth import update_session_auth_hash
 from .forms import *
 import stripe
 from django.contrib import messages
@@ -154,13 +155,13 @@ def registro_vendedor(request):
             user = form.save(commit=False)
             user.rol = "vendedor"
             user.save()
-            form.save_m2m()
-
-            if form1.is_valid():  
+            
+            if form1.is_valid():
                 i = Usuario.objects.last()
                 profile = form1.save(commit=False)
-                profile.user = i
                 profile.estado = True
+                profile.user = i
+                profile.save()
 
             if user is not None and profile is not None:
                 do_login(request, user)
@@ -184,13 +185,13 @@ def registro_comprador(request):
             user = form.save(commit=False)
             user.rol = "comprador"
             user.save()
-            form.save_m2m()
 
-            if form1.is_valid():  
+            if form1.is_valid():
                 i = Usuario.objects.last()
                 profile = form1.save(commit=False)
                 profile.user = i
                 profile.estado = True
+                profile.save()
 
             if user is not None and profile is not None:
                 do_login(request, user)
@@ -203,6 +204,54 @@ def registro_comprador(request):
     form.fields['email'].help_text = None
     
     return render(request, "cuentas/registrocomprador.html", {'form': form, 'form1': form1})
+
+# @login_required
+def editar_usuario(request):
+    if request.method == 'POST':
+        form = ModificarUsuario(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Tu contraseña ha sido actualizada')
+            return redirect('/editar_usuario')
+
+        else:
+            messages.error(request, 'Error al actualizar la contraseña, verifique los campos y vuelva a intentarlo...')
+
+    else:
+        form = ModificarUsuario(request.user)
+
+    return render(request, "cuentas/editar-usuario.html", {'form': form})
+
+def editar_perfil_comprador(request):
+    form = EditarPerfilComprador()
+    profile = Perfil_Comprador.objects.get(user=request.user)
+    if request.method == "POST":
+        form = EditarPerfilComprador(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Los datos de tu perfil han sido actualizados')
+            return redirect('/editar_perfil_comprador')
+    else:
+        form = EditarPerfilComprador(instance=profile)
+    
+    return render(request, "cuentas/editar-perfil-comprador.html", {'form': form})
+
+def editar_perfil_vendedor(request):
+    form = EditarPerfilVendedor()
+    profile = Perfil_Vendedor.objects.get(user=request.user)
+    if request.method == "POST":
+        form = EditarPerfilVendedor(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Los datos de tu perfil han sido actualizados')
+            return redirect('/editar_perfil_vendedor')
+
+    else:
+        form = EditarPerfilVendedor(instance=profile)
+
+    return render(request, "cuentas/editar-perfil-vendedor.html", {'form': form})
+
 
 #para stripe
 @csrf_exempt

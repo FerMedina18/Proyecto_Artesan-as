@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+Editar Usuario
+{% endblock %}
+
+{% block content %}
+
+    <main>
+        <div class="rusuariov container" enctype="multipart/form-data">
+            <h2>Editar Usuario</h2>
+            <form method="POST">{% csrf_token %}
+                {% load widget_tweaks%}
+
+                <div class="form-group">
+                    <label for="pusuariov">Contraseña actual</label>
+                    {% render_field form.old_password type="password" class="form-control" placeholder="Ingrese la contraseña actual" %}
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="pusuariov1">Nueva contraseña</label>
+                    {% render_field form.new_password1 type="password" class="form-control" placeholder="Ingrese la nueva contraseña" %}
+                </div>
+                
+                <br>
+                
+                <div class="form-group">
+                    <label for="pusuariov1">Confirmar Contraseña</label>
+                    {% render_field form.new_password2 type="password" class="form-control" placeholder="Confirme la nueva contraseña" %}
+                </div>
+
+                <br>
+
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+        </div>
+    </main>
+
+{% endblock content %}

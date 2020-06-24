@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
 
 class UsuarioLogin(AuthenticationForm):
     class Meta:
@@ -10,21 +10,33 @@ class UsuarioLogin(AuthenticationForm):
 class CrearUsuario(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ('username', 'email', 'password1', 'avatar')
+        fields = ('username', 'email', 'password', 'avatar')
 
-class ModificarUsuario(UserChangeForm):
+class ModificarUsuario(PasswordChangeForm):
     class Meta:
         model = Usuario
-        fields = ('username', 'password')
+        fields = ('old_password', 'new_password1', 'new_password2')
 
 class CrearPerfilVendedor(forms.ModelForm):
     class Meta:
         model = Perfil_Vendedor
         fields = ('portada', 'nombres', 'apellidos', 'ciudad', 
-        'telefono', 'direccion', 'descripcion')
+                  'telefono', 'direccion', 'descripcion')
 
 class CrearPerfilComprador(forms.ModelForm):
     class Meta:
-        model = Perfil_Vendedor
+        model = Perfil_Comprador
         fields = ('nombres', 'apellidos', 'ciudad', 
-        'telefono', 'direccion', 'descripcion')
+                  'telefono', 'direccion', 'descripcion')
+
+class EditarPerfilComprador(forms.ModelForm):
+    class Meta:
+        model = Perfil_Comprador
+        fields = ('nombres', 'apellidos', 'ciudad', 
+                  'telefono', 'direccion', 'descripcion')
+
+class EditarPerfilVendedor(forms.ModelForm):
+    class Meta:
+        model = Perfil_Vendedor
+        fields = ('portada', 'nombres', 'apellidos', 'ciudad', 
+                  'telefono', 'direccion', 'descripcion')

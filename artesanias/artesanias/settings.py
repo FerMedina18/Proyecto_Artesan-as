@@ -153,3 +153,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Para stripe
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51GsTLgD0RqFrpGOSjPQkcZAVG7dv1OWRP98XXEXQk2zGZrsM75bmWKfY0bTCOslwEE8fgrcFONT9URv2wNMTPm6800i8jBNsxi'
 STRIPE_SECRET_KEY = 'sk_test_51GsTLgD0RqFrpGOSbuWbGwp4eROePqVsKSlNrJBAvNPGSA4qw9uwpG7OQb92Gr9zeOc9Np4K0Rb7gj6S7YrBpqal00qso6RPBK'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'correo'
+EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#587
