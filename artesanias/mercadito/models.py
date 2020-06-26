@@ -71,10 +71,7 @@ class Producto_Categoria(models.Model):
 
 class Imagen(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    ruta = models.ImageField(blank=True)
-
-    def __str__(self):
-        return self.producto
+    ruta = models.ImageField(upload_to="productos",null=True)
 
 class Puntuacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

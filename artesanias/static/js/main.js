@@ -175,6 +175,29 @@ $(document).ready(function(){
         }   
     }
 
+    $('#imageprod').on('change', validaripdt);
+
+    function validaripdt(){
+        var archivo = document.getElementById("imageprod");
+        var fileName = document.getElementById("imageprod").value;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+
+            if(archivo.files && archivo.files[0]){
+                var ver = new FileReader();
+
+                ver.onload=function(e){
+                    document.getElementById('verprod').innerHTML =
+                    '<embed src="'+e.target.result+'" width="420" height="370" style="margin-top:40px;">';
+                }
+                ver.readAsDataURL(archivo.files[0]);
+            }
+        }else{
+            alert("Solo se permite archivos cuya extensión sean jpg, png o jpeg");
+        }   
+    }
+
     /* Para stripe */
     /*console.log("Todo va bien!");
     // Obtener la clace publica de stripe

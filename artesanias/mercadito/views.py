@@ -18,7 +18,12 @@ from .forms import *
 import stripe
 from django.contrib import messages
 
+from .models import *
+
 def index(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     # messages.success(request, "Todo bien")
     object_list =[
         {'get_category_display':"Ropa",
@@ -46,15 +51,107 @@ def index(request):
          'price':80
         }
     ]
-    return render(request, 'index.html', {'object_list' : object_list})
+    return render(request, 'index.html', {'object_list' : object_list, 'categorias':categorias})
 
 def condiciones(request):
-    return render(request, 'general/condicionesdeuso.html')
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'general/condicionesdeuso.html', context)
 
 def politica(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
     return render(request, 'general/politicaprivacidad.html')
 
+def pagprod(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'paginaproducto.html', context)
+
+def agregar_producto(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+
+    if request.POST:
+        producto = Producto()
+
+        usuario = Usuario()
+        usuario.id = request.user.id
+
+        producto.usuario = usuario
+        
+        #El nombre compadre
+        producto.nombre = request.POST.get('pnombre')
+        producto.precio = request.POST.get('pprecio')
+        producto.existencia = request.POST.get('pexistencias')
+        producto.descripcion = request.POST.get('pdescripcion')
+
+        try:
+            producto.save()
+
+            imagen = Imagen()
+
+            imagen.producto = producto
+            imagen.ruta = request.FILES.get('iproducto')
+
+            imagen.save()
+            
+            prod_categ = Producto_Categoria()
+            # Hay que guardarlo primero
+            prod_categ.save()
+            prod_categ.producto.add(producto)
+
+            for c in Categoria.objects.all():
+                if c.id == int(request.POST.get('pcategorias')):
+                    prod_categ.categoria.add(c)
+
+            try:
+                messages.success(request, "Guardado correctamente")
+            except:
+                messages.success(request, "No se pudo guardar")
+        except:
+            messages.success(request, "No se pudo guardar")
+
+    return render(request, 'agregarproducto.html', context)
+
+def mi_perfilc(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'miperfilc.html', context)
+
+def mi_perfilv(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'miperfilv.html', context)
+
 def productos(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     object_list =[
         {'get_category_display':"Ropa",
          'title':"camisa",
@@ -116,10 +213,13 @@ def productos(request):
          'price':80
         }
     ]
-    return render(request, 'productos.html', {'object_list' : object_list})
+    return render(request, 'productos.html', {'object_list' : object_list, 'categorias':categorias})
 
 @csrf_protect
 def login(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     csrfContext = RequestContext(request)
     p = "nada"
     form = UsuarioLogin()
@@ -138,7 +238,7 @@ def login(request):
                 do_login(request, user)
 
                 return redirect('/')
-    return render(request, "cuentas/login.html", {'form': form, 'p': p})
+    return render(request, "cuentas/login.html", {'form': form, 'p': p, 'categorias':categorias})
 
 def logout(request):
     do_logout(request)
@@ -146,6 +246,9 @@ def logout(request):
     return redirect('/')
 
 def registro_vendedor(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     form = CrearUsuario()
     form1 = CrearPerfilVendedor()
     if request.method == "POST":
@@ -176,9 +279,12 @@ def registro_vendedor(request):
     form.fields['password2'].help_text = None
     form.fields['email'].help_text = None
     
-    return render(request, "cuentas/registro.html", {'form': form, 'form1': form1})
+    return render(request, "cuentas/registro.html", {'form': form, 'form1': form1, 'categorias':categorias})
 
 def registro_comprador(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     form = CrearUsuario()
     form1 = CrearPerfilComprador()
     if request.method == "POST":
@@ -209,10 +315,13 @@ def registro_comprador(request):
     form.fields['password2'].help_text = None
     form.fields['email'].help_text = None
     
-    return render(request, "cuentas/registrocomprador.html", {'form': form, 'form1': form1})
+    return render(request, "cuentas/registrocomprador.html", {'form': form, 'form1': form1, 'categorias':categorias})
 
 # @login_required
 def editar_usuario(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     if request.method == 'POST':
         form = ModificarUsuario(request.user, request.POST)
         if form.is_valid():
@@ -227,9 +336,12 @@ def editar_usuario(request):
     else:
         form = ModificarUsuario(request.user)
 
-    return render(request, "cuentas/editar-usuario.html", {'form': form})
+    return render(request, "cuentas/editar-usuario.html", {'form': form, 'categorias':categorias})
 
 def editar_perfil_comprador(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     form = EditarPerfilComprador()
     profile = Perfil_Comprador.objects.get(user=request.user)
     if request.method == "POST":
@@ -241,9 +353,12 @@ def editar_perfil_comprador(request):
     else:
         form = EditarPerfilComprador(instance=profile)
     
-    return render(request, "cuentas/editar-perfil-comprador.html", {'form': form})
+    return render(request, "cuentas/editar-perfil-comprador.html", {'form': form, 'categorias':categorias})
 
 def editar_perfil_vendedor(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     form = EditarPerfilVendedor()
     profile = Perfil_Vendedor.objects.get(user=request.user)
     if request.method == "POST":
@@ -256,9 +371,12 @@ def editar_perfil_vendedor(request):
     else:
         form = EditarPerfilVendedor(instance=profile)
 
-    return render(request, "cuentas/editar-perfil-vendedor.html", {'form': form})
+    return render(request, "cuentas/editar-perfil-vendedor.html", {'form': form, 'categorias':categorias})
 
-def agregar_producto(request):
+def agregar_producto2(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     form = AgregarProducto()
     form1 = ImagenProducto()
     if request.method == "POST":
@@ -278,9 +396,12 @@ def agregar_producto(request):
 
             return redirect('/agregar_producto')
 
-    return render(request, "agregar-producto.html", {'form': form, 'form1': form1})
+    return render(request, "agregar-producto.html", {'form': form, 'form1': form1, 'categorias':categorias})
 
 def ver_productos(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     product = list()
 
     for producto in Producto.objects.all():
@@ -293,7 +414,7 @@ def ver_productos(request):
                  })
         print(product.count)
 
-    return render(request, 'mis-productos.html', {'product': product})
+    return render(request, 'mis-productos.html', {'product': product, 'categorias':categorias})
 
 
 #para stripe

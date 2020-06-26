@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+    Inicio
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <div class="side">
+            <img src="{% static 'images/p1.jpg' %}" alt="">
+            <button class="btn btn-danger mg"><span><i class="fas fa-heart ipt"></i></span> Me gusta</button>
+        </div>
+        <br>
+        <div class="contnt">
+            <p>A x personas les gusta este producto</p>
+            <h1>Nombre del producto</h1>
+            <a href="#">X categoria</a>
+            <br>
+            <br>
+            <h5>Descripcion</h5>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas obcaecati, omnis repellendus itaque tenetur vero consequatur! Facere iusto fuga blanditiis aut odio provident cupiditate possimus dolorem sed debitis. Officia, soluta?</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium earum reprehenderit eum quo ab aliquam, omnis saepe nihil commodi? Perferendis repellat illo cumque nam error. Atque vel debitis deserunt iste.</p>
+            <br>
+            <button class="btn btn-primary comp"><span><i class="fas fa-shopping-bag ipt"></i></span>Comprar</button>
+            <button class="btn btn-success"><span><i class="fa fa-shopping-cart ipt" ></i></span>Agregar al carrito</button>
+        </div>
+    </div>
+</main>
+{% endblock content %}

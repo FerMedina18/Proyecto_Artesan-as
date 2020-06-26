@@ -65,10 +65,9 @@
                     </a>
                 </div>
                 <ul class="categorias">
-                    <li><a href="#">Madera</a></li>
-                    <li><a href="#">Barro</a></li>
-                    <li><a href="#">Tela</a></li>
-                    <li><a href="#">Instrumentos</a></li>
+                    {% for c in categorias %}
+                        <li><a href="#">{{c.nombre}}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <a href="/registro_comprador">Registrarse</a>
