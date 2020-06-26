@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+    Inicio
+{% endblock %}
+
+{% block content %}
+
+<div class="container destacados">
+  <a href="/agregar_producto">Agregar Producto</a>
+    <h1>Mis <span>Productos</span></h1>
+      <div class=" row wow fadeIn index">
+        {% for producto in product %}
+        <div class="col-lg-3 col-md-6 mb-4">
+    
+          <div class="card index">
+    
+            <div class="view overlay">
+              <img src="{% static 'images/p2.jpg' %}" class="card-img-top">
+              <a href="{{ item.get_absolute_url }}">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+    
+            <div class="card-body text-center">
+              <a class="grey-text">
+                <h5>{{ producto.nombre }}</h5>
+              </a>
+              <h5>
+                <strong>
+                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ producto.nombre }}</a>
+                </strong>
+              </h5>
+    
+              <h4 class="font-weight-bold blue-text">
+                <strong>$
+                  {% if producto.precio %}
+                  {{ producto.precio }}
+                  {% else %}
+                  {{ producto.precio }}
+                  {% endif %}
+                </strong>
+              </h4>
+              <div class="abajo">
+                <div class="vmas">
+                  
+                </div>
+                <button class="btn btn-success">Editar</button>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+        {% endfor %}
+        {{ producto.count }}
+
+      </div>
+
+  </div>
+
+{% endblock content %}

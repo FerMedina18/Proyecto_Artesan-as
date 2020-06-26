@@ -155,7 +155,7 @@ def registro_vendedor(request):
             user = form.save(commit=False)
             user.rol = "vendedor"
             user.save()
-            
+
             if form1.is_valid():
                 i = Usuario.objects.last()
                 profile = form1.save(commit=False)
@@ -167,6 +167,9 @@ def registro_vendedor(request):
                 do_login(request, user)
 
                 return redirect('/')
+
+        else:
+            messages.error(request, 'Error al registrarse, verifique los campos y vuelva a intentarlo...')
 
     form.fields['username'].help_text = None
     form.fields['password1'].help_text = None
@@ -197,6 +200,9 @@ def registro_comprador(request):
                 do_login(request, user)
 
                 return redirect('/')
+
+        else:
+            messages.error(request, 'Error al registrarse, verifique los campos y vuelva a intentarlo...')
 
     form.fields['username'].help_text = None
     form.fields['password1'].help_text = None
@@ -252,6 +258,43 @@ def editar_perfil_vendedor(request):
 
     return render(request, "cuentas/editar-perfil-vendedor.html", {'form': form})
 
+def agregar_producto(request):
+    form = AgregarProducto()
+    form1 = ImagenProducto()
+    if request.method == "POST":
+        form = AgregarProducto(data=request.POST)
+
+        if form.is_valid():
+            producto = form.save(commit=False)
+            producto.usuario = request.user
+            producto.save()
+
+            if form1.is_valid():
+                i = Producto.objects.last()
+                image = form1.save(commit=False)
+                image.producto = i
+                image.save()
+
+
+            return redirect('/agregar_producto')
+
+    return render(request, "agregar-producto.html", {'form': form, 'form1': form1})
+
+def ver_productos(request):
+    product = list()
+
+    for producto in Producto.objects.all():
+        if producto.usuario == request.user:
+            product.append({
+                'nombre': producto.nombre,
+                'precio': producto.precio,
+                'existencia': producto.existencia,
+                'descripcion': producto.descripcion,
+                 })
+        print(product.count)
+
+    return render(request, 'mis-productos.html', {'product': product})
+
 
 #para stripe
 @csrf_exempt
@@ -283,9 +326,6 @@ def create_checkout_session(request):
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
             return JsonResponse({'error': str(e)})
-
-
-
 
 # @api_view(["GET"])
 # @csrf_exempt

@@ -73,6 +73,9 @@
             </div>
             <a href="/registro_comprador">Registrarse</a>
             <a href="/registro_vendedor">Vender</a>
+            {% if user.is_authenticated and user.rol == "vendedor" %}
+                <a href="/ver_productos">Mis productos</a>
+            {% endif %}
         </div>
         <div class="fade-sm"></div>
     </header>

@@ -10,7 +10,7 @@ class UsuarioLogin(AuthenticationForm):
 class CrearUsuario(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ('username', 'email', 'password', 'avatar')
+        fields = ('username', 'email', 'avatar')
 
 class ModificarUsuario(PasswordChangeForm):
     class Meta:
@@ -40,3 +40,19 @@ class EditarPerfilVendedor(forms.ModelForm):
         model = Perfil_Vendedor
         fields = ('portada', 'nombres', 'apellidos', 'ciudad', 
                   'telefono', 'direccion', 'descripcion')
+
+class AgregarProducto(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ('nombre', 'precio', 'existencia', 
+                  'descripcion', 'estado')
+
+class ImagenProducto(forms.ModelForm):
+    class Meta:
+        model = Imagen
+        fields = ('ruta',)
+
+class EditarProducto(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ('nombre', 'precio', 'existencia', 'descripcion')
