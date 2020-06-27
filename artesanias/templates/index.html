@@ -83,8 +83,7 @@
                   <i class="fas fa-plus"></i>
                 </div>
                 {% for pr in item.producto.all %}
-                  <a href="{{ pr.get_add_to_cart_url }}">Hola</a>
-                  <button class="btn btn-success">Agregar al carrito</button>
+                  <button class="btn btn-success" onclick="window.location='{{ pr.get_add_to_cart_url }}'">Agregar al carrito</button>
                 {% endfor %}
               </div>
             </div>

@@ -55,6 +55,7 @@ class Producto(models.Model):
     fecha_publicacion = models.DateField(auto_now=True)
     descripcion = models.TextField(default='', max_length=300)
     estado = models.BooleanField(default=True)
+    descuento = models.FloatField(blank=True, null=True)
     slug = models.SlugField()
     
     def __str__(self):
@@ -83,6 +84,63 @@ class Producto(models.Model):
         return reverse("mercadito:editar_producto", kwargs={
             'slug': self.slug
         })
+
+class OrderItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.cantidad} of {self.producto.nombre}"
+
+    def get_total_item_price(self):
+        return self.cantidad * self.producto.precio
+
+    def get_total_discount_item_price(self):
+        print(self.producto.descuento)
+        print(self.cantidad)
+        return self.cantidad * self.producto.descuento
+
+    def get_amount_saved(self):
+        return self.get_total_item_price() - self.get_total_discount_item_price()
+
+    def get_final_price(self):
+        if self.producto.descuento:
+            return self.get_total_discount_item_price()
+        return self.get_total_item_price()
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ref_code = models.CharField(max_length=20, blank=True, null=True)
+    productos = models.ManyToManyField(OrderItem)
+    fecha_inicio = models.DateTimeField(auto_now_add=True)
+    fecha_pedido = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+    cupon = models.ForeignKey('Cupon', on_delete=models.SET_NULL, blank=True, null=True)
+    being_delivered = models.BooleanField(default=False)
+    received = models.BooleanField(default=False)
+    refund_requested = models.BooleanField(default=False)
+    refund_granted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    def get_total(self):
+        total = 0
+        for order_item in self.productos.all():
+            total += order_item.get_final_price()
+        if self.cupon:
+            total -= self.cupon.cantidad
+        return total
+
+class Cupon(models.Model):
+    codigo = models.CharField(max_length=15)
+    cantidad = models.FloatField()
+
+    def __str__(self):
+        return self.codigo
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -118,23 +176,6 @@ class Puntuacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     usuario_comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.producto
-
-class Orden(models.Model):
-    usuario_comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    fecha_solicitud = models.DateField(auto_now=True)
-    fecha_envio = models.DateField(auto_now=False)
-
-
-
-class Detalle_Orden(models.Model):
-    orden = models.ForeignKey(Orden, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField(default=1)
-    descuento = models.FloatField()
-    total = models.FloatField()
 
     def __str__(self):
         return self.producto

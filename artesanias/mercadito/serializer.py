@@ -42,14 +42,14 @@ class PuntuacionSerializer(serializers.ModelSerializer):
         model = Puntuacion
         fields = ('__all__')
 
-class OrdenSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Orden
+        model = Order
         fields = ('__all__')
 
-class DOrdenSerializer(serializers.ModelSerializer):
+class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Detalle_Orden
+        model = OrderItem
         fields = ('__all__')
 
 # class ProfileSerializer(serializers.ModelSerializer):

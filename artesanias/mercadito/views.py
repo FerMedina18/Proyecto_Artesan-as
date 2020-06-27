@@ -22,6 +22,10 @@ from .models import *
 from django.views.generic import ListView, DetailView, View
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+
 
 def index(request):
     #cargar las categorias
@@ -98,6 +102,109 @@ def add_to_cart(request, slug):
         messages.info(request, "Se ha agregado un nuevo producto a tu carrito.")
         return redirect("mercadito:order-summary")
 
+class OrderSummaryView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            context = {
+                'object': order
+            }
+            return render(self.request, 'order_summary.html', context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "No hay ordenes activas.")
+            return redirect("/")
+
+@login_required
+def add_to_cart(request, slug):
+    producto = get_object_or_404(Producto, slug=slug)
+    order_item, created = OrderItem.objects.get_or_create(
+        producto=producto,
+        user=request.user,
+        ordered=False
+    )
+    # query selector
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # varifica si un producto esta en lista
+        if order.productos.filter(producto__slug=producto.slug).exists():
+            if order_item.cantidad < producto.existencia:
+                order_item.cantidad += 1
+                order_item.save()
+                messages.info(request, "Se han actulizado las cantidades.")
+                return redirect("mercadito:order-summary")
+            else:
+                messages.info(request, "Ya no hay mas productos disponibles.")
+                return redirect("mercadito:order-summary")
+        else:
+            order.productos.add(order_item)
+            messages.info(request, "Se ha agregado un nuevo producto a tu carrito.")
+            return redirect("mercadito:order-summary")
+    else:
+        fecha_pedido = timezone.now()
+        order = Order.objects.create(
+            user=request.user, fecha_pedido=fecha_pedido)
+        order.productos.add(order_item)
+        messages.info(request, "Se ha agregado un nuevo producto a tu carrito.")
+        return redirect("mercadito:order-summary")
+
+@login_required
+def remove_from_cart(request, slug):
+    producto = get_object_or_404(Producto, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # verificar que estan ordenada las ordenes de los productos
+        if order.productos.filter(producto__slug=producto.slug).exists():
+            order_item = OrderItem.objects.filter(
+                producto=producto,
+                user=request.user,
+                ordered=False
+            )[0]
+            order.productos.remove(order_item)
+            order_item.delete()
+            messages.info(request, "El producto fue removido de su carrito.")
+            return redirect("mercadito:order-summary")
+        else:
+            messages.info(request, "")
+            return redirect("mercadito:producto", slug=slug)
+    else:
+        messages.info(request, "No tiene ningun pedido activo")
+        return redirect("mercadito:producto", slug=slug)
+
+@login_required
+def remove_single_item_from_cart(request, slug):
+    producto = get_object_or_404(Producto, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.productos.filter(producto__slug=producto.slug).exists():
+            order_item = OrderItem.objects.filter(
+                producto=producto,
+                user=request.user,
+                ordered=False
+            )[0]
+            if order_item.cantidad > 1:
+                order_item.cantidad -= 1
+                order_item.save()
+            else:
+                order.productos.remove(order_item)
+            messages.info(request, "Las unidades del producto han sido actualizadas.")
+            return redirect("mercadito:order-summary")
+        else:
+            messages.info(request, "Este producto no estaba en tu carrito")
+            return redirect("mercadito:producto", slug=slug)
+    else:
+        messages.info(request, "No hay predidos activos")
+        return redirect("mercadito:producto", slug=slug)
+
 def agregar_producto(request):
     #cargar las categorias
     categorias = Categoria.objects.all()
@@ -116,8 +223,9 @@ def agregar_producto(request):
         
         #El nombre compadre
         producto.nombre = request.POST.get('pnombre')
-        producto.precio = request.POST.get('pprecio')
-        producto.existencia = request.POST.get('pexistencias')
+        producto.precio = float(request.POST.get('pprecio'))
+        producto.descuento = float(request.POST.get('pexistencias'))
+        producto.existencia = int(request.POST.get('pexistencias'))
         producto.descripcion = request.POST.get('pdescripcion')
         producto.slug = producto.nombre
 

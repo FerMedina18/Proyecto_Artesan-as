@@ -34,10 +34,10 @@ class Puntuacion_ViewSet(viewsets.ModelViewSet):
     queryset = Puntuacion.objects.all()
     serializer_class = PuntuacionSerializer
 
-class Orden_ViewSet(viewsets.ModelViewSet):
-    queryset = Orden.objects.all()
-    serializer_class = OrdenSerializer
+class Order_ViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
 
-class DOrden_ViewSet(viewsets.ModelViewSet):
-    queryset = Detalle_Orden.objects.all()
-    serializer_class = DOrdenSerializer
+class OrderItem_ViewSet(viewsets.ModelViewSet):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
