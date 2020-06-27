@@ -20,7 +20,7 @@ from django.contrib import messages
 
 def index(request):
     # messages.success(request, "Todo bien")
-<<<<<<< HEAD
+
     object_list =[
         {'get_category_display':"Ropa",
          'title':"camisa",
@@ -48,7 +48,7 @@ def index(request):
         }
     ]
     return render(request, 'index.html', {'object_list' : object_list})
-=======
+
     productos = Producto.objects.all()
     p = Producto_Categoria.objects.all()
     imagen = Imagen.objects.all()
@@ -60,7 +60,7 @@ def index(request):
     }
     
     return render(request, 'index.html', context)
->>>>>>> 3f10b8d61007edfaf221e01ff4ec2f0821d6fc4f
+
 
 def condiciones(request):
     return render(request, 'general/condicionesdeuso.html')
@@ -68,7 +68,6 @@ def condiciones(request):
 def politica(request):
     return render(request, 'general/politicaprivacidad.html')
 
-<<<<<<< HEAD
 def productos(request):
     object_list =[
         {'get_category_display':"Ropa",
@@ -132,7 +131,7 @@ def productos(request):
         }
     ]
     return render(request, 'productos.html', {'object_list' : object_list})
-=======
+
 def pagprod(request):
     #cargar las categorias
     categorias = Categoria.objects.all()
@@ -226,7 +225,6 @@ def productos(request):
     }
 
     return render(request, 'productos.html', {'object_list' : object_list, 'categorias':categorias})
->>>>>>> 3f10b8d61007edfaf221e01ff4ec2f0821d6fc4f
 
 @csrf_protect
 def login(request):
