@@ -55,7 +55,7 @@
             {% endif %}
             
             <div class="ordenes">
-                <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
+                <a href="" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
                 <div class="cantidad">
                     <p>0</p>
                 </div>
@@ -71,7 +71,10 @@
                 </div>
                 <ul class="categorias">
                     {% for c in categorias %}
-                        <li><a href="#">{{c.nombre}}</a></li>
+                        <li><a href="#">{{ c.nombre }}</a></li>
+                    {% endfor %}
+                    {% for a in object.get_categ %}
+                        <li><a href="">{{ a.nombre }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -83,7 +86,6 @@
         </div>
         <div class="fade-sm"></div>
     </header>
-    
     {% include "menulateral.html" %}
 
     <div class="margen">

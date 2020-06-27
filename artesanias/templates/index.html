@@ -82,7 +82,10 @@
                 <div class="vmas">
                   <i class="fas fa-plus"></i>
                 </div>
-                <button class="btn btn-success">Agregar al carrito</button>
+                {% for pr in item.producto.all %}
+                  <a href="{{ pr.get_add_to_cart_url }}">Hola</a>
+                  <button class="btn btn-success">Agregar al carrito</button>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -135,12 +138,13 @@
                   <strong>C$ {{ pr.precio }}</strong>
                 {% endfor %}
               </h4>
-              <br>  
+              <br>
+              
               <div class="abajo">
                 <div class="vmas">
                   <i class="fas fa-plus"></i>
                 </div>
-                <button class="btn btn-success">Agregar al carrito</button>
+                <button class="btn btn-success" onclick="{{ p.get_add_to_cart_url }}" >Agregar al carrito</button>
               </div>
             </div>
           </div>

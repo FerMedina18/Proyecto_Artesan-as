@@ -21,6 +21,7 @@ urlpatterns = [
     path('politica/', views.politica, name='politica'),
     path('productos/', views.productos, name='productos'),
     path('producto/<slug>/', pagprod.as_view(), name='producto'),
+    path('add-to-cart/<slug>/', add_to_cart, name='add-to-cart'),
     path('agregar_producto/', views.agregar_producto, name='addproducto'),
     path('ver_productos/', ver_productos, name='ver_productos'),
     path('config/', views.stripe_config),

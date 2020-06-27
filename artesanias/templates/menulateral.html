@@ -23,6 +23,9 @@
                 {% for c in categorias %}
                     <li><a href="#" class="ma">{{c.nombre}}</a></li>
                 {% endfor %}
+                {% for a in object.get_categ %}
+                    <li><a href="#" class="ma">{{ a.nombre }}</a></li>
+                {% endfor %}
             </ul>
         </li>
     </ul>

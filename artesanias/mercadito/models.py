@@ -91,8 +91,9 @@ class Producto_Categoria(models.Model):
         for i in Imagen.objects.all():
             if i.producto.id == self.id:
                 return i
-        
 
+    def get_categ(self):
+        return Categoria.objects.all()
 
 class Imagen(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -110,6 +111,8 @@ class Orden(models.Model):
     usuario_comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_solicitud = models.DateField(auto_now=True)
     fecha_envio = models.DateField(auto_now=False)
+
+
 
 class Detalle_Orden(models.Model):
     orden = models.ForeignKey(Orden, on_delete=models.CASCADE)
