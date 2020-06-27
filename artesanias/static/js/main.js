@@ -198,10 +198,6 @@ $(document).ready(function(){
         }   
     }
 
-    function solo_numeros(){
-        
-    }
-
     /* Para stripe */
     /*console.log("Todo va bien!");
     // Obtener la clace publica de stripe

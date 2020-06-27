@@ -18,37 +18,14 @@ from .forms import *
 import stripe
 from django.contrib import messages
 
+from .models import *
+from django.views.generic import ListView, DetailView, View
+
 def index(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
     # messages.success(request, "Todo bien")
-
-    object_list =[
-        {'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        }
-    ]
-    return render(request, 'index.html', {'object_list' : object_list})
-
     productos = Producto.objects.all()
     p = Producto_Categoria.objects.all()
     imagen = Imagen.objects.all()
@@ -63,83 +40,28 @@ def index(request):
 
 
 def condiciones(request):
-    return render(request, 'general/condicionesdeuso.html')
-
-def politica(request):
-    return render(request, 'general/politicaprivacidad.html')
-
-def productos(request):
-    object_list =[
-        {'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        },{'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        }
-    ]
-    return render(request, 'productos.html', {'object_list' : object_list})
-
-def pagprod(request):
     #cargar las categorias
     categorias = Categoria.objects.all()
 
     context = {
         'categorias':categorias
     }
-    return render(request, 'paginaproducto.html', context)
+    return render(request, 'general/condicionesdeuso.html', context)
+
+def politica(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'general/politicaprivacidad.html')
+
+
+# Usando clases
+class pagprod(DetailView):
+    model = Producto_Categoria
+    template_name = "paginaproducto.html"
 
 def agregar_producto(request):
     #cargar las categorias
@@ -175,6 +97,7 @@ def agregar_producto(request):
             
             prod_categ = Producto_Categoria()
             # Hay que guardarlo primero
+            prod_categ.slug = producto.nombre
             prod_categ.save()
             prod_categ.producto.add(producto)
 
@@ -378,28 +301,7 @@ def editar_perfil_vendedor(request):
 
     return render(request, "cuentas/editar-perfil-vendedor.html", {'form': form})
 
-def agregar_producto(request):
-    form = AgregarProducto()
-    form1 = ImagenProducto()
-    if request.method == "POST":
-        form = AgregarProducto(data=request.POST)
-
-        if form.is_valid():
-            producto = form.save(commit=False)
-            producto.usuario = request.user
-            producto.save()
-
-            if form1.is_valid():
-                i = Producto.objects.last()
-                image = form1.save(commit=False)
-                image.producto = i
-                image.save()
-
-
-            return redirect('/agregar_producto')
-
-    return render(request, "agregarproducto.html", {'form': form, 'form1': form1})
-
+    
 def ver_productos(request):
     product = list()
 

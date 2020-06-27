@@ -1,5 +1,4 @@
 from django.urls import path, include
-from .views import index
 from  rest_framework import routers
 from .viewsets import *
 from .views import *
@@ -21,9 +20,8 @@ urlpatterns = [
     path('condiciones/', views.condiciones, name='condiciones'),
     path('politica/', views.politica, name='politica'),
     path('productos/', views.productos, name='productos'),
-    path('producto/', views.pagprod, name='producto'),
+    path('producto/<slug>/', pagprod.as_view(), name='producto'),
     path('agregar_producto/', views.agregar_producto, name='addproducto'),
-    #path('agregar_producto/', agregar_producto, name='agregar_producto'),
     path('ver_productos/', ver_productos, name='ver_productos'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),

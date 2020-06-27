@@ -55,14 +55,10 @@ class Producto(models.Model):
     fecha_publicacion = models.DateField(auto_now=True)
     descripcion = models.TextField(default='', max_length=300)
     estado = models.BooleanField(default=True)
-
+    slug = models.SlugField()
+    
     def __str__(self):
         return self.nombre
-
-    def get_absolute_url(self):
-        return reverse("mercadito:product", kwargs={
-            'slug': self.slug
-        })
 
     def get_add_to_cart_url(self):
         return reverse("mercadito:add-to-cart", kwargs={
@@ -84,6 +80,13 @@ class Categoria(models.Model):
 class Producto_Categoria(models.Model):
     producto = models.ManyToManyField(Producto)
     categoria = models.ManyToManyField(Categoria)
+    slug = models.SlugField()
+
+    def get_absolute_url(self):
+        return reverse("mercadito:producto", kwargs={
+            'slug': self.slug
+        })
+
 
 class Imagen(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
