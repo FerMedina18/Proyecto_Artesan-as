@@ -75,7 +75,11 @@ div.container.ver, div.container.mostrar{
 }
 
 .view.overlay{
-    cursor: pointer;
+    cursor: pointer;;
+}
+
+.view.overlay img{
+    box-sizing: content-box;
 }
 
 .abajo{
@@ -169,6 +173,7 @@ div.container.ver, div.container.mostrar{
 #descp{
     resize: none;
 }
+
 
 /* Media queries*/
 @media screen and (min-width : 1023px){

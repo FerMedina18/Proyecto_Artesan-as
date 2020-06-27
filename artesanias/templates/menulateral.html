@@ -8,12 +8,12 @@
         <li><a href="/registro_comprador" class="ma">Registrarse</a></li>
         <li>
             {% if not user.is_authenticated %}
-                <a href="/login">Iniciar Sesión</a>
+                <a href="/login" class="ma">Iniciar Sesión</a>
             {% endif %}
             {% if user.is_authenticated %}
-                <a href="/logout">Cerrar Sesión</a>
+                <a href="/logout" class="ma">Cerrar Sesión</a>
             {% endif %}
-        <li><a href="#" class="ma">Carrito</a></li>
+        </li>
         <li><a href="/registro_vendedor" class="ma">vender</a></li>
         <li>
             <a href="#" class="ma">categorias

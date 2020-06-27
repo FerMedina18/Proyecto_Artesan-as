@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
@@ -25,33 +25,17 @@ def index(request):
     categorias = Categoria.objects.all()
 
     # messages.success(request, "Todo bien")
-    object_list =[
-        {'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        }
-    ]
-    return render(request, 'index.html', {'object_list' : object_list, 'categorias':categorias})
+    productos = Producto.objects.all()
+    p = Producto_Categoria.objects.all()
+    imagen = Imagen.objects.all()
+
+    context = {
+        'p' : p,
+        'categorias':categorias,
+        'imagen':imagen
+    }
+    
+    return render(request, 'index.html', context)
 
 def condiciones(request):
     #cargar las categorias
@@ -130,6 +114,7 @@ def agregar_producto(request):
 
     return render(request, 'agregarproducto.html', context)
 
+
 def mi_perfilc(request):
     #cargar las categorias
     categorias = Categoria.objects.all()
@@ -152,67 +137,16 @@ def productos(request):
     #cargar las categorias
     categorias = Categoria.objects.all()
 
-    object_list =[
-        {'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        },{'get_category_display':"Ropa",
-         'title':"camisa",
-         'get_label_display':"Primary",
-         'discount_price':23,
-         'price':50
-        },
-        {'get_category_display':"Madera",
-         'title':"Mesa",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':40
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        },
-        {'get_category_display':"Barro",
-         'title':"Jarron",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':60
-        },
-        {'get_category_display':"Instrumento",
-         'title':"Guitarra",
-         'get_label_display':"Primary",
-         'discount_price':0,
-         'price':80
-        }
-    ]
+    productos = Producto.objects.all()
+    p = Producto_Categoria.objects.all()
+    imagen = Imagen.objects.all()
+
+    context = {
+        'p' : p,
+        'categorias':categorias,
+        'imagen':imagen
+    }
+
     return render(request, 'productos.html', {'object_list' : object_list, 'categorias':categorias})
 
 @csrf_protect

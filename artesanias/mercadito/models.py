@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.shortcuts import reverse
 
 class Usuario(AbstractUser):
     avatar = models.ImageField(blank=True)
@@ -57,6 +58,21 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def get_absolute_url(self):
+        return reverse("mercadito:product", kwargs={
+            'slug': self.slug
+        })
+
+    def get_add_to_cart_url(self):
+        return reverse("mercadito:add-to-cart", kwargs={
+            'slug': self.slug
+        })
+
+    def get_remove_from_cart_url(self):
+        return reverse("mercadito:remove-from-cart", kwargs={
+            'slug': self.slug
+        })
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)

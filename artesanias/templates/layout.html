@@ -39,22 +39,27 @@
         </form>
         <div class="usuarios">
             {% if not user.is_authenticated %}
-                <a href="/login">Iniciar Sesión</a>
+                <a href="/login" class="ocult">Iniciar Sesión</a>
             {% endif %}
             {% if user.is_authenticated %}
-                <a href="/logout">Cerrar Sesión</a>
-                <a href="/editar_usuario">Editar Usuario</a>
+                <a href="/logout" class="ocult">Cerrar Sesión</a>
+                <a href="/editar_usuario" class="ocult">Editar Usuario</a>
                 {% if user.rol == "comprador" %}
-                    <a href="/editar_perfil_comprador">Editar Perfilc</a>
+                    <a href="/editar_perfil_comprador" class="ocult">Editar Perfilc</a>
                 {% endif %}
 
                 {% if user.rol == "vendedor" %}
-                    <a href="/editar_perfil_vendedor">Editar Perfilv</a>
+                    <a href="/editar_perfil_vendedor" class="ocult">Editar Perfilv</a>
                 {% endif %}
-                <p>{{ user }}</p>
+                <p class="ocult">{{ user }}</p>
             {% endif %}
             
-            <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
+            <div class="ordenes">
+                <a href="#" class="carrito "><i class="fa fa-shopping-cart" ></i></a>
+                <div class="cantidad">
+                    <p>0</p>
+                </div>
+            </div>
         </div>
 
         <div class="submenu">

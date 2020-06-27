@@ -124,6 +124,27 @@ a.carrito{
     color: blue;
 }
 
+.ordenes{
+    position: relative;
+}
+
+.cantidad{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: -10px;
+    top: -18px;
+    background: #ff0000;
+    font-family: sans-serif;
+    padding: 5px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding-left: 6px;
+    line-height: 14px;
+}
+
 .usuarios a:hover{
     border: 1px solid  #1E8BC3;
 }
@@ -292,8 +313,24 @@ main{
 @media screen and (max-width: 725px){
     header{
         grid-template-columns: auto 1fr;
-        grid-template-areas: "pmenu logo"
-                             "buscador buscador";
+        grid-template-areas: "pmenu logo usuarios"
+                             "buscador buscador buscador";
+    }
+
+    .usuarios .ocult{
+        display: none;
+    }
+
+    .ordenes{
+        transform: translateX(10px);
+    }
+
+    .cantidad{
+        width: 20px;
+        height: 20px;
+        top: -10px;
+        font-size: 14px;
+        line-height: 10px;
     }
 
     .menu{
@@ -315,9 +352,9 @@ main{
         width: 80%;
     }
 
-    .usuarios{
+    /*.usuarios{
         display: none;
-    }
+    }*/
 
     .submenu{
         display: none;
