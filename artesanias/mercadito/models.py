@@ -87,6 +87,12 @@ class Producto_Categoria(models.Model):
             'slug': self.slug
         })
 
+    def get_imagenes(self):
+        for i in Imagen.objects.all():
+            if i.producto.id == self.id:
+                return i
+        
+
 
 class Imagen(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

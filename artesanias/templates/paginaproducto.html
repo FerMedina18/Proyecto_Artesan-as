@@ -9,7 +9,7 @@
 <main>
     <div class="container">
         <div class="side">
-            <img src="{% static 'images/p1.jpg' %}" alt="">
+            <img src="{{ object.get_imagenes.ruta.url }}" alt="">
             <button class="btn btn-danger mg"><span><i class="fas fa-heart ipt"></i></span> Me gusta</button>
         </div>
         <br>
