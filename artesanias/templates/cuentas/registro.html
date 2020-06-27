@@ -40,6 +40,7 @@ Registro
                 <div class="form-group">
                     <label for="pusuariov">Contraseña</label>
                     {% render_field form.password1 type="password" class="form-control" placeholder="Ingrese una contraseña" %}
+                    {{ form.password1.errors }}
                 </div>
 
                 <br>
@@ -47,6 +48,7 @@ Registro
                 <div class="form-group">
                     <label for="pusuariov1">Confirmar contraseña</label>
                     {% render_field form.password2 type="password" class="form-control" placeholder="Confirme la contraseña" %}
+                    {{ form.password2.errors }}
                 </div>
 
                 <br>

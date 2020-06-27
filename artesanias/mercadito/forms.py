@@ -10,7 +10,7 @@ class UsuarioLogin(AuthenticationForm):
 class CrearUsuario(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ('username', 'email', 'avatar')
+        fields = ('username', 'email', 'avatar', 'password1', 'password2')
 
 class ModificarUsuario(PasswordChangeForm):
     class Meta:

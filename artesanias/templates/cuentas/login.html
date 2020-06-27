@@ -14,6 +14,7 @@
             {% load widget_tweaks%} 
             <div class="form-group">
                 <label for="nusuario">Nombre de usuario</label>
+                {{ form.username.errors }}
                 {% render_field form.username type="text" class="form-control" id="nusuario" placeholder="Ingresar Usuario" %}
             </div>
             <div class="form-group">
@@ -25,6 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="pusuario">Contraseña</label>
+                {{ form.password.errors }}
                 {% render_field form.password type="password" class="form-control" id="pusuario" placeholder="Ingresar contraseña" %}
                 <a href="#">¿Ha olvidado su contraseña?</a>
             </div>
