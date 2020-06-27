@@ -17,19 +17,21 @@
           <div class="card index">
     
             <div class="view overlay">
-              <img src="{% static 'images/p2.jpg' %}" class="card-img-top">
-              <a href="{{ item.get_absolute_url }}">
+              <img src="{{ producto.ruta.ruta.url }}" class="card-img-top">
+              <a href="{{ producto.get_url }}">
                 <div class="mask rgba-white-slight"></div>
               </a>
             </div>
     
             <div class="card-body text-center">
-              <a class="grey-text">
-                <h5>{{ producto.nombre }}</h5>
+              {% for p in producto.categoria.categoria.all %}
+              <a class="grey-text" href="{{ producto.get_url }}">
+                <h5>{{ p.nombre }}</h5>
               </a>
+              {% endfor %}
               <h5>
                 <strong>
-                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ producto.nombre }}</a>
+                  <a href="{{ producto.get_url }}" class="dark-grey-text">{{ producto.nombre }}</a>
                 </strong>
               </h5>
     
@@ -46,7 +48,7 @@
                 <div class="vmas">
                   
                 </div>
-                <button class="btn btn-success">Editar</button>
+                <button class="btn btn-success"><a href="{{ producto.get_absolute_url }}" style="color: white;">Editar</a></button>
               </div>
             </div>
           </div>

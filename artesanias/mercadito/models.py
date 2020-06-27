@@ -7,12 +7,12 @@ from django.conf import settings
 from django.shortcuts import reverse
 
 class Usuario(AbstractUser):
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(blank=True, upload_to="avatar")
     rol = models.CharField(max_length=20)
 
 class Perfil_Vendedor(models.Model):
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="profile_vendedor")
-    portada = models.ImageField(blank=True)
+    portada = models.ImageField(blank=True, upload_to="portada")
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     ciudad = models.CharField(max_length=200)
@@ -70,6 +70,20 @@ class Producto(models.Model):
             'slug': self.slug
         })
 
+    def get_producto(self):
+        return Producto.objects.get(id=self.id)
+
+    def get_imagen(self):
+        return Imagen.objects.get(producto=self.id)
+
+    def get_categoria(self):
+        return Producto_Categoria.objects.get(producto=self.id)
+    
+    def get_absolute_url(self):
+        return reverse("mercadito:editar_producto", kwargs={
+            'slug': self.slug
+        })
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(default='', max_length=200)
@@ -92,12 +106,13 @@ class Producto_Categoria(models.Model):
             if i.producto.id == self.id:
                 return i
 
+
     def get_categ(self):
         return Categoria.objects.all()
 
 class Imagen(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    ruta = models.ImageField(upload_to="productos",null=True)
+    ruta = models.ImageField(upload_to="productos", null=True)
 
 class Puntuacion(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

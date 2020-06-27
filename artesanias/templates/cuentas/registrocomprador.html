@@ -11,7 +11,7 @@ Registro
         <h2>Registro Comprador</h2>
         <p>La siguiente cuenta le permitira ofrecer sus productos, clasificarlos, gestionar stock y establecer
             descuentos</p>
-        <form method="POST">{% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             {% load widget_tweaks%}
             <div class="form-group">
                 {% load widget_tweaks%}

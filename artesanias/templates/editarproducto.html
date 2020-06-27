@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block head_title %}
+    Editar Producto
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container ap">
+        <h2>Editar producto</h2>
+        <p>A continuación se le presenta el formulario para editar su producto</p>
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            <!--Para evitar que los datos vengas de fuentes externas al ordenador-->
+            {% csrf_token %}
+            <div class="imagenuv form-group">
+                <label for="imageprod">Seleccione una imagen del producto</label>
+                <input type="file" class="form-control-file" name="iproducto" id="imageprod" accept=".png, .jpg, .jpeg">
+                <input type="button" class="btn btn-primary" value="Subir imagen" onclick="document.getElementById('imageprod').click()">
+                
+                <div class="container mostrar">
+                    <div id="verprod">
+
+                    </div>
+                </div>
+                <br>
+                <div class="recom">
+                    <p>Se recomienda sea imagen de 696 x 464 pxs</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre del producto</label>
+                <input type="text" class="form-control" name="pnombre" placeholder="Establecer el nombre del producto" value="{{ object.nombre }}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="rusuario">Seleccionar a que categoria pertenece</label>
+                <select class="form-control" id="rusuario" name="pcategorias">
+                    {% for c in object.category.objects.all  %}
+                        <option value="{{c.id}}">{{c.nombre}}</option>
+                    {% endfor %}
+                </select>    
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Precio del producto (En córdobas)</label>
+                <input type="text" class="form-control" name="pprecio" placeholder="Precio" value="{{ object.precio }}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Cantidad de unidades disponibles</label>
+                <input type="text" class="form-control" name="pexistencias" placeholder="Existencias" value="{{ object.existencia }}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea type="text" name="pdescripcion" id="descp" class="form-control" placeholder="Escriba una descripción del producto" cols="30" rows="4">{{ object.descripcion }}</textarea>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Editar producto</button>
+        
+        </form>
+    </div>
+</main>
+{% endblock content %}

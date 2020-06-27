@@ -21,9 +21,11 @@ urlpatterns = [
     path('politica/', views.politica, name='politica'),
     path('productos/', views.productos, name='productos'),
     path('producto/<slug>/', pagprod.as_view(), name='producto'),
+    path('editar_producto/<slug>/', PagEditarProducto.as_view(), name='editar_producto'),
     path('add-to-cart/<slug>/', add_to_cart, name='add-to-cart'),
     path('agregar_producto/', views.agregar_producto, name='addproducto'),
     path('ver_productos/', ver_productos, name='ver_productos'),
+    path('listar_categoria', listar_categoria, name='listar_categoria'),
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
     url(

@@ -10,7 +10,7 @@ Registro
     <div class="rusuariov container" enctype="multipart/form-data">
         <h2>Editar Perfil</h2>
 
-        <form method="POST">{% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             {% load widget_tweaks%}
 
             <div class="imagenuv form-group">

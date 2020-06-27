@@ -62,8 +62,12 @@ def politica(request):
 
 # Usando clases
 class pagprod(DetailView):
-    model = Producto_Categoria
+    model = Producto
     template_name = "paginaproducto.html"
+
+class PagEditarProducto(DetailView):
+    model = Producto
+    template_name = "editarproducto.html"
 
 @login_required
 def add_to_cart(request, slug):
@@ -146,6 +150,57 @@ def agregar_producto(request):
 
     return render(request, 'agregarproducto.html', context)
 
+def editar_producto(request):
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+
+    if request.POST:
+        producto = Producto()
+
+        usuario = Usuario()
+        usuario.id = request.user.id
+
+        producto.usuario = usuario
+        
+        #El nombre compadre
+        producto.nombre = request.POST.get('pnombre')
+        producto.precio = request.POST.get('pprecio')
+        producto.existencia = request.POST.get('pexistencias')
+        producto.descripcion = request.POST.get('pdescripcion')
+        producto.slug = producto.nombre
+
+        try:
+            producto.save()
+
+            imagen = Imagen()
+
+            imagen.producto = producto
+            imagen.ruta = request.FILES.get('iproducto')
+
+            imagen.save()
+            
+            prod_categ = Producto_Categoria()
+            # Hay que guardarlo primero
+            prod_categ.slug = producto.nombre
+            prod_categ.save()
+            prod_categ.producto.add(producto)
+
+            for c in Categoria.objects.all():
+                if c.id == int(request.POST.get('pcategorias')):
+                    prod_categ.categoria.add(c)
+
+            try:
+                messages.success(request, "Guardado correctamente")
+            except:
+                messages.success(request, "No se pudo guardar")
+        except:
+            messages.success(request, "No se pudo guardar")
+
+    return render(request, 'editarproducto.html', context)
+
 
 def mi_perfilc(request):
     #cargar las categorias
@@ -212,8 +267,8 @@ def registro_vendedor(request):
     form = CrearUsuario()
     form1 = CrearPerfilVendedor()
     if request.method == "POST":
-        form = CrearUsuario(data=request.POST)
-        form1 = CrearPerfilVendedor(data=request.POST)
+        form = CrearUsuario(data=request.POST and request.FILES)
+        form1 = CrearPerfilVendedor(data=request.POST and request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             user.rol = "vendedor"
@@ -251,7 +306,7 @@ def registro_comprador(request):
     form = CrearUsuario()
     form1 = CrearPerfilComprador()
     if request.method == "POST":
-        form = CrearUsuario(data=request.POST)
+        form = CrearUsuario(request.POST, request.FILES)
         form1 = CrearPerfilComprador(data=request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -308,7 +363,7 @@ def editar_perfil_comprador(request):
     form = EditarPerfilComprador()
     profile = Perfil_Comprador.objects.get(user=request.user)
     if request.method == "POST":
-        form = EditarPerfilComprador(request.POST, instance=profile)
+        form = EditarPerfilComprador(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Los datos de tu perfil han sido actualizados')
@@ -322,7 +377,7 @@ def editar_perfil_vendedor(request):
     form = EditarPerfilVendedor()
     profile = Perfil_Vendedor.objects.get(user=request.user)
     if request.method == "POST":
-        form = EditarPerfilVendedor(request.POST, instance=profile)
+        form = EditarPerfilVendedor(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Los datos de tu perfil han sido actualizados')
@@ -340,14 +395,22 @@ def ver_productos(request):
     for producto in Producto.objects.all():
         if producto.usuario == request.user:
             product.append({
+                'id': producto.id,
+                'ruta': producto.get_imagen,
                 'nombre': producto.nombre,
+                'categoria': producto.get_categoria,
                 'precio': producto.precio,
                 'existencia': producto.existencia,
                 'descripcion': producto.descripcion,
+                'get_url': producto.get_absolute_url,
                  })
-        print(product.count)
 
     return render(request, 'mis-productos.html', {'product': product})
+
+def listar_categoria(request):
+    categoria = Categoria.objects.all()
+
+    return render(request, "editarproducto.html", {'categoria': categoria})
 
 
 #para stripe
