@@ -262,14 +262,20 @@ def registro_vendedor(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.rol = "vendedor"
-            user.save()
+            try:
+                user.save()
+            except:
+                messages.error(request, "El usuario que ingreso ya existe o el correo ya esta asociado a otro usuario...")
 
             if form1.is_valid():
                 i = Usuario.objects.last()
                 profile = form1.save(commit=False)
                 profile.estado = True
                 profile.user = i
-                profile.save()
+                try:
+                    profile.save()
+                except:
+                    messages.error(request, "Error al registrar perfil...")
 
             if user is not None and profile is not None:
                 do_login(request, user)
@@ -277,7 +283,7 @@ def registro_vendedor(request):
                 return redirect('/')
 
         else:
-            messages.error(request, 'Error al registrarse, verifique los campos y vuelva a intentarlo...')
+            messages.error(request, "Error al registrarse, verifique los campos y vuelva intentarlo...")
 
     form.fields['username'].help_text = None
     form.fields['password1'].help_text = None
@@ -295,14 +301,20 @@ def registro_comprador(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.rol = "comprador"
-            user.save()
+            try:
+                user.save()
+            except:
+                messages.error(request, "El usuario ya existe o el correo ya esta asociado a otro usuario...")
 
             if form1.is_valid():
                 i = Usuario.objects.last()
                 profile = form1.save(commit=False)
                 profile.user = i
                 profile.estado = True
-                profile.save()
+                try:
+                    profile.save()
+                except:
+                    messages.error(request, "Error al registrar perfil...")
 
             if user is not None and profile is not None:
                 do_login(request, user)
@@ -310,7 +322,7 @@ def registro_comprador(request):
                 return redirect('/')
 
         else:
-            messages.error(request, 'Error al registrarse, verifique los campos y vuelva a intentarlo...')
+            messages.error(request, "Error al registrarse, verifique los campos y vuelva intentarlo...")
 
     form.fields['username'].help_text = None
     form.fields['password1'].help_text = None
@@ -386,7 +398,7 @@ def agregar_producto(request):
 
             return redirect('/agregar_producto')
 
-    return render(request, "agregar-producto.html", {'form': form, 'form1': form1})
+    return render(request, "agregarproducto.html", {'form': form, 'form1': form1})
 
 def ver_productos(request):
     product = list()
