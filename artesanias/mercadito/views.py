@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
@@ -20,6 +20,7 @@ from django.contrib import messages
 
 def index(request):
     # messages.success(request, "Todo bien")
+<<<<<<< HEAD
     object_list =[
         {'get_category_display':"Ropa",
          'title':"camisa",
@@ -47,6 +48,19 @@ def index(request):
         }
     ]
     return render(request, 'index.html', {'object_list' : object_list})
+=======
+    productos = Producto.objects.all()
+    p = Producto_Categoria.objects.all()
+    imagen = Imagen.objects.all()
+
+    context = {
+        'p' : p,
+        'categorias':categorias,
+        'imagen':imagen
+    }
+    
+    return render(request, 'index.html', context)
+>>>>>>> 3f10b8d61007edfaf221e01ff4ec2f0821d6fc4f
 
 def condiciones(request):
     return render(request, 'general/condicionesdeuso.html')
@@ -54,6 +68,7 @@ def condiciones(request):
 def politica(request):
     return render(request, 'general/politicaprivacidad.html')
 
+<<<<<<< HEAD
 def productos(request):
     object_list =[
         {'get_category_display':"Ropa",
@@ -117,6 +132,101 @@ def productos(request):
         }
     ]
     return render(request, 'productos.html', {'object_list' : object_list})
+=======
+def pagprod(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'paginaproducto.html', context)
+
+def agregar_producto(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+
+    if request.POST:
+        producto = Producto()
+
+        usuario = Usuario()
+        usuario.id = request.user.id
+
+        producto.usuario = usuario
+        
+        #El nombre compadre
+        producto.nombre = request.POST.get('pnombre')
+        producto.precio = request.POST.get('pprecio')
+        producto.existencia = request.POST.get('pexistencias')
+        producto.descripcion = request.POST.get('pdescripcion')
+
+        try:
+            producto.save()
+
+            imagen = Imagen()
+
+            imagen.producto = producto
+            imagen.ruta = request.FILES.get('iproducto')
+
+            imagen.save()
+            
+            prod_categ = Producto_Categoria()
+            # Hay que guardarlo primero
+            prod_categ.save()
+            prod_categ.producto.add(producto)
+
+            for c in Categoria.objects.all():
+                if c.id == int(request.POST.get('pcategorias')):
+                    prod_categ.categoria.add(c)
+
+            try:
+                messages.success(request, "Guardado correctamente")
+            except:
+                messages.success(request, "No se pudo guardar")
+        except:
+            messages.success(request, "No se pudo guardar")
+
+    return render(request, 'agregarproducto.html', context)
+
+
+def mi_perfilc(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'miperfilc.html', context)
+
+def mi_perfilv(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    context = {
+        'categorias':categorias
+    }
+    return render(request, 'miperfilv.html', context)
+
+def productos(request):
+    #cargar las categorias
+    categorias = Categoria.objects.all()
+
+    productos = Producto.objects.all()
+    p = Producto_Categoria.objects.all()
+    imagen = Imagen.objects.all()
+
+    context = {
+        'p' : p,
+        'categorias':categorias,
+        'imagen':imagen
+    }
+
+    return render(request, 'productos.html', {'object_list' : object_list, 'categorias':categorias})
+>>>>>>> 3f10b8d61007edfaf221e01ff4ec2f0821d6fc4f
 
 @csrf_protect
 def login(request):

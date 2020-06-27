@@ -32,43 +32,52 @@
       <span class="sr-only">Next</span>
     </a>
 </div>
+
 <main class="principal">
   <div class="container">
     <h1>Nuevos <span>productos</span></h1>
     <h5>Los productos agregados más recientemente.</h5>
       <div class="row wow fadeIn index">
 
-        {% for item in object_list %}
+        {% for item in p %}
         <div class="col-lg-3 col-md-6 mb-4">
     
           <div class="card index">
     
             <div class="view overlay">
-              <img src="{% static 'images/p2.jpg' %}" class="card-img-top">
+              {% for i in imagen%}
+                {% for pr in item.producto.all %}
+                  {% if i.producto.id == pr.id %}
+                    <img src="{{ i.ruta.url }}" class="card-img-top" style="height: 212px;">
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              
+
               <a href="{{ item.get_absolute_url }}">
                 <div class="mask rgba-white-slight"></div>
               </a>
             </div>
     
             <div class="card-body text-center">
-              <a class="grey-text">
-                <h5>{{ item.get_category_display }}</h5>
-              </a>
+              {% for c in item.categoria.all %}
+                <a href = "{{ item.get_absolute_url }}" class="grey-text">
+                  <h5>{{ c.nombre }}</h5>
+                </a>
+              {% endfor %}
+
               <h5>
-                <strong>
-                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}</a>
-                </strong>
+                {% for pr in item.producto.all %}
+                  <strong style="color:#1E8BC3; font-size:18px;">{{ pr.nombre }}</strong>
+                {% endfor %}
               </h5>
     
               <h4 class="font-weight-bold blue-text">
-                <strong>$
-                  {% if item.discount_price %}
-                  {{ item.discount_price }}
-                  {% else %}
-                  {{ item.price }}
-                  {% endif %}
-                </strong>
+                {% for pr in item.producto.all %}
+                  <strong>C$ {{ pr.precio }}</strong>
+                {% endfor %}
               </h4>
+              <br>  
               <div class="abajo">
                 <div class="vmas">
                   <i class="fas fa-plus"></i>
@@ -88,37 +97,45 @@
     <h5>Los productos que tienen el número de compras más alto.</h5>
       <div class=" row wow fadeIn index">
 
-        {% for item in object_list %}
+        {% for item in p %}
         <div class="col-lg-3 col-md-6 mb-4">
     
           <div class="card index">
     
             <div class="view overlay">
-              <img src="{% static 'images/p2.jpg' %}" class="card-img-top">
+              {% for i in imagen%}
+                {% for pr in item.producto.all %}
+                  {% if i.producto.id == pr.id %}
+                    <img src="{{ i.ruta.url }}" class="card-img-top" style="height: 212px;">
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              
+
               <a href="{{ item.get_absolute_url }}">
                 <div class="mask rgba-white-slight"></div>
               </a>
             </div>
     
             <div class="card-body text-center">
-              <a class="grey-text">
-                <h5>{{ item.get_category_display }}</h5>
-              </a>
+              {% for c in item.categoria.all %}
+                <a href = "#" class="grey-text">
+                  <h5>{{ c.nombre }}</h5>
+                </a>
+              {% endfor %}
+
               <h5>
-                <strong>
-                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}</a>
-                </strong>
+                {% for pr in item.producto.all %}
+                  <strong style="color:#1E8BC3; font-size:18px;">{{ pr.nombre }}</strong>
+                {% endfor %}
               </h5>
     
               <h4 class="font-weight-bold blue-text">
-                <strong>$
-                  {% if item.discount_price %}
-                  {{ item.discount_price }}
-                  {% else %}
-                  {{ item.price }}
-                  {% endif %}
-                </strong>
+                {% for pr in item.producto.all %}
+                  <strong>C$ {{ pr.precio }}</strong>
+                {% endfor %}
               </h4>
+              <br>  
               <div class="abajo">
                 <div class="vmas">
                   <i class="fas fa-plus"></i>
