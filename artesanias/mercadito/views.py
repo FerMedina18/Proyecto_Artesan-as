@@ -84,6 +84,7 @@ def agregar_producto(request):
         producto.precio = request.POST.get('pprecio')
         producto.existencia = request.POST.get('pexistencias')
         producto.descripcion = request.POST.get('pdescripcion')
+        producto.slug = producto.nombre
 
         try:
             producto.save()
